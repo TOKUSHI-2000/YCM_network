@@ -1,7 +1,7 @@
 #ifndef FUNCTION_HOST_HPP
 #define FUNCTION_HOST_HPP
 
-#include "communication.hpp"
+#include "network.hpp"
 
 
 class Host : public communication

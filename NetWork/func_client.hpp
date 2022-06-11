@@ -1,7 +1,7 @@
 #ifndef FUNCTION_CLIENT_HPP
 #define FUNCTION_CLIENT_HPP
 
-#include "communication.hpp"
+#include "network.hpp"
 
 
 
