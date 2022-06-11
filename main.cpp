@@ -17,7 +17,7 @@ constexpr float LINE_AREA_SIZE = 10000.0f;
 constexpr int LINE_NUM = 50;
 
 std::string str[3];
-
+/*
 int stringToInt(std::string str)
 {
 	std::cout << str << "\t";
@@ -40,7 +40,7 @@ int stringToInt(std::string str)
     return a;
     }
 }
-
+*/
 
 
 int WINAPI WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow )
@@ -137,27 +137,27 @@ int WINAPI WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLin
 		num = tmpStr.find(".");
 		tmpStrNum = tmpStr.substr(0,num);
 		tmpStr.erase(0, num + 1);
-		ip.d1 = stringToInt(tmpStrNum);
+		//ip.d1 = stringToInt(tmpStrNum);
 
 		num = tmpStr.find(".");
 		tmpStrNum = tmpStr.substr(0,num);
 		tmpStr.erase(0, num + 1);
-		ip.d2 = stringToInt(tmpStrNum);
+		//ip.d2 = stringToInt(tmpStrNum);
 
 		num = tmpStr.find(".");
 		tmpStrNum = tmpStr.substr(0,num);
 		tmpStr.erase(0, num + 1);
-		ip.d3 = stringToInt(tmpStrNum);
+		//ip.d3 = stringToInt(tmpStrNum);
 		
 		num = tmpStr.find(".");
 		tmpStrNum = tmpStr.substr(0,num);
-		ip.d4 = stringToInt(tmpStrNum);
+		//ip.d4 = stringToInt(tmpStrNum);
 		
 		
-		//Ip.d1 = 192;
-		//Ip.d2 = 168;
-		//Ip.d3 = 1;
-		//Ip.d4 = 4;
+		ip.d1 = 192;
+		ip.d2 = 168;
+		ip.d3 = 1;
+		ip.d4 = 4;
 	}
 
 	AvatarMe = new MyCharacter();

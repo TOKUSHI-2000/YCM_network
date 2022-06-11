@@ -75,15 +75,6 @@ void Character::DrawModel()
 	MV1DrawModel( ModelHandle );
 }
 
-void Character::setMove(netDate tmp)
-{
-	Angle = tmp.boby.avatarDate.angle;
-	Position = tmp.boby.avatarDate.position;
-}
-
-
-
-
 MyCharacter::MyCharacter()
 {
 	
@@ -322,27 +313,7 @@ void MyCharacter::CameraMove()
 
 }
 
-netDate MyCharacter::GetSetUp()
-{
-	netDate tmp;
-	tmp.id = 0;
-	tmp.kind = 0;
-	//tmp.boby.setUpC.name = "HOGEHOGE";
-	tmp.boby.setUpC.type = 1;
-	std::cout << "アバターデータセットOK\n";
-	return tmp;
-}
 
-
-netDate MyCharacter::GetDate()
-{
-	netDate tmp;
-	tmp.id = 1;
-	tmp.kind = 1;
-	tmp.boby.avatarDate.position = Position;
-	tmp.boby.avatarDate.angle = Angle;
-	return tmp;
-}
 
 
 

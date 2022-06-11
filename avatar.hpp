@@ -36,7 +36,6 @@ public:
     ~Character();
     void CharactorSet(short id);
     void DrawModel();
-    //void setMove(netDate tmp);
 };
 
 
@@ -57,8 +56,6 @@ public:
     void GetMoveKey();
     void MoveCamera();
     void CameraMove();
-    //netDate GetSetUp();
-    //netDate GetDate();
 };
 
 
