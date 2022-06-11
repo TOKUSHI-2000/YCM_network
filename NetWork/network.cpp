@@ -1,4 +1,4 @@
-#include "communication.hpp"
+#include "network.hpp"
 
 
 communication::communication()

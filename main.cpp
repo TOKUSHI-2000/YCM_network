@@ -49,8 +49,7 @@ int stringToInt(std::string str)
 		ScreenFlip() ;
 		WaitKey();
 		
-		netSituation &= ~(1 << 0);
-		netSituation &= ~(1 << 1);
+		
 		exit(1);
 	} catch (std::out_of_range e) {
     return a;
@@ -73,8 +72,6 @@ int WINAPI WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLin
 
 	Character* Avatar[numOfAvts];
 	MyCharacter* AvatarMe;
-
-	IpSys *Communication;
 
 	signed char myAvaterId = -1;
 

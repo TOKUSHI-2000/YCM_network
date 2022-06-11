@@ -1,4 +1,4 @@
-#include "func_client.hpp"
+#include "client.hpp"
 
 Client::Client(IPDATA ipDate_) : ipDate(ipDate_)
 {

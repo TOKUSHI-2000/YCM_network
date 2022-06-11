@@ -9,28 +9,5 @@
 #include <iostream>
 constexpr char numOfAvts = 32;
 
-struct netDate
-{
-    char id;
-    char kind;
-    union body
-    {
-        struct setUpC
-        {
-            //char name[32] = "HOGEHOGE";
-            unsigned short type;
-        }setUpC;
 
-        struct avatarDate
-        {
-            VECTOR position;
-            int angle;
-        }avatarDate;
-        
-        
-    }boby;
-    
-
-
-};
 #endif
