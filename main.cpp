@@ -153,21 +153,21 @@ int WINAPI WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLin
 		num = tmpStr.find(".");
 		tmpStrNum = tmpStr.substr(0,num);
 		tmpStr.erase(0, num + 1);
-		Ip.d1 = stringToInt(tmpStrNum);
+		ip.d1 = stringToInt(tmpStrNum);
 
 		num = tmpStr.find(".");
 		tmpStrNum = tmpStr.substr(0,num);
 		tmpStr.erase(0, num + 1);
-		Ip.d2 = stringToInt(tmpStrNum);
+		ip.d2 = stringToInt(tmpStrNum);
 
 		num = tmpStr.find(".");
 		tmpStrNum = tmpStr.substr(0,num);
 		tmpStr.erase(0, num + 1);
-		Ip.d3 = stringToInt(tmpStrNum);
+		ip.d3 = stringToInt(tmpStrNum);
 		
 		num = tmpStr.find(".");
 		tmpStrNum = tmpStr.substr(0,num);
-		Ip.d4 = stringToInt(tmpStrNum);
+		ip.d4 = stringToInt(tmpStrNum);
 		
 		
 		//Ip.d1 = 192;
@@ -194,7 +194,7 @@ int WINAPI WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLin
 		int* netHandle = new int;
 		netSituation &= ~(1 << 2);
 		//th=CreateThread(0,0,(LPTHREAD_START_ROUTINE)Client,(LPVOID)1,0,NULL);
-		DrawFormatString(0,0,GetColor(255,255,255),"接続中\n  べーた版\n  IP:%d.%d.%d.%d",Ip.d1,Ip.d2,Ip.d3,Ip.d4);
+		DrawFormatString(0,0,GetColor(255,255,255),"接続中\n  べーた版\n  IP:%d.%d.%d.%d",ip.d1,ip.d2,ip.d3,ip.d4);
 		ScreenFlip();
 		while (!(netSituation & (1 << 2)))
 		{

@@ -9,5 +9,6 @@
 #include <iostream>
 constexpr char numOfAvts = 32;
 
+IPDATA ip;
 
 #endif
