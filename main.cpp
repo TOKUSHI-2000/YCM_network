@@ -47,8 +47,7 @@ int WINAPI WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLin
 {
 	float  cameraHAngle ;
 	float  cameraVAngle ;
-	float  SinParam ;
-	float  CosParam ;
+	
 	int fileHandle;
 
 	short charaId;
