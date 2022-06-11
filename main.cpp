@@ -53,7 +53,7 @@ int WINAPI WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLin
 
 	short charaId;
 	char hostId = false;
-	static HANDLE th;
+	//static HANDLE th;
 
 	Character* Avatar[numOfAvts];
 	MyCharacter* AvatarMe;
@@ -305,11 +305,12 @@ int WINAPI WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLin
 	// ＤＸライブラリの後始末
 	DxLib_End() ;
 	DWORD result;
+	/*
 	do
 	{
 		GetExitCodeThread( th, &result);
 	} while (STILL_ACTIVE==result);
-	
+	*/
 
 	// ソフトの終了
 	return 0 ;
