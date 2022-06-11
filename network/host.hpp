@@ -4,7 +4,7 @@
 #include "network.hpp"
 
 
-class Host : public communication
+class Host : public network
 {
 private:
     int tmpNetHandle = -1;

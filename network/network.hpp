@@ -3,9 +3,7 @@
 
 #include "header.hpp"
 
-netBufferDate setUpdate;
-
-class communication
+class network
 {
 private:
 protected:
@@ -19,10 +17,10 @@ protected:
 
     void setBufferX(netBufferDate date, int id);
 public:
-    communication();
-    ~communication();
+    network();
+    ~network();
 
-    virtual void IPcommu();
+    virtual void IPcommu() =0;
     netBufferDate getBuffer(int i);
 };
 

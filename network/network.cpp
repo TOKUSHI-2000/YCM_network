@@ -1,19 +1,19 @@
-#include "communication.hpp"
+#include "network.hpp"
 
 
-communication::communication()
+network::network()
 {
     ipSysCondition = 0;
 }
 
 
-communication::~communication()
+network::~network()
 {
 
 }
 
 
-void communication::setBufferX(netBufferDate date, int id)
+void network::setBufferX(netBufferDate date, int id)
 {
     
     netBuffer[id] = date;
@@ -21,7 +21,7 @@ void communication::setBufferX(netBufferDate date, int id)
 }
 
 
-netBufferDate communication::getBuffer(int i)
+netBufferDate network::getBuffer(int i)
 {
     return netBuffer[i];
 }

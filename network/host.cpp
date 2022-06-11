@@ -8,6 +8,8 @@ Host::Host()
 }
 
 
+netBufferDate setUpdate;
+
 void Host::IPcommu()
 {
     int time = GetNowCount();

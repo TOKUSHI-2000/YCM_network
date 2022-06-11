@@ -5,7 +5,7 @@
 
 
 
-class Client : public communication
+class Client : public network
 {
 private:
     const IPDATA ipDate;
