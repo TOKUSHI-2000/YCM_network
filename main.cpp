@@ -177,12 +177,11 @@ int WINAPI WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLin
 	}
 
 	AvatarMe = new MyCharacter();
-	netSituation &= (1 << 0);
-	netSituation &= (1 << 1);
+	//netSituation &= (1 << 0);
+	//netSituation &= (1 << 1);
 	if (hostId == 1)
 	{
 		
-		//th=CreateThread(0,0,(LPTHREAD_START_ROUTINE)Host,(LPVOID)1,0,NULL);
 		AvatarMe->num = 0;
 		Avatar[0] = AvatarMe;//ホストはアバターID0を登録
 	}
@@ -192,17 +191,16 @@ int WINAPI WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLin
 		//DrawString(0,0,"接続中\n  べーた版\n  ",GetColor(255,255,255), true);
 		ProcessMessage();
 		int* netHandle = new int;
-		netSituation &= ~(1 << 2);
-		//th=CreateThread(0,0,(LPTHREAD_START_ROUTINE)Client,(LPVOID)1,0,NULL);
-		DrawFormatString(0,0,GetColor(255,255,255),"接続中\n  べーた版\n  IP:%d.%d.%d.%d",ip.d1,ip.d2,ip.d3,ip.d4);
+		//netSituation &= ~(1 << 2);
+		DrawFormatString(0,0,GetColor(255,255,255),(TCHAR*)"接続中\n  べーた版\n  IP:%d.%d.%d.%d",ip.d1,ip.d2,ip.d3,ip.d4);
 		ScreenFlip();
-		while (!(netSituation & (1 << 2)))
+		while (!(1/*netSituation & (1 << 2)*/))
 		{
 			if ( ProcessMessage() != 0)
 			{
 				
-				netSituation &= ~(1 << 0);
-				netSituation &= ~(1 << 1);
+				//netSituation &= ~(1 << 0);
+				//netSituation &= ~(1 << 1);
 
 				DxLib_End();
 				return 0;
@@ -213,12 +211,11 @@ int WINAPI WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLin
 		std::cout << *netHandle;
 		while ( *netHandle < 0)
 		{
-			printf("co");
 			if ( ProcessMessage() != 0)
 			{
 				
-				netSituation &= ~(1 << 0);
-				netSituation &= ~(1 << 1);
+				//netSituation &= ~(1 << 0);
+				//netSituation &= ~(1 << 1);
 
 				DxLib_End();
 				return 0;
@@ -235,10 +232,10 @@ int WINAPI WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLin
 	}
     
 	AvatarMe->CharactorSet(charaId);
-	Host a;
-	Communication = &a;
+	//Host a;
+	//Communication = &a;
 	std::cout << "CharactorSetOK\n";
-	Communication->setBuffer(AvatarMe->GetSetUp());
+	//Communication->setBuffer(AvatarMe->GetSetUp());
 	std::cout << "BufferセットアップOK";
 
 	// カメラの向きを初期化
@@ -253,7 +250,7 @@ int WINAPI WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLin
 		
 			if (AvatarMe->num != i)
 			{
-				Avatar[i]->setMove(Communication->getBuffer(i));
+	//			Avatar[i]->setMove(Communication->getBuffer(i));
 			}
 		}
 	}
@@ -284,7 +281,7 @@ int WINAPI WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLin
 		}
 		
 
-		Communication->setBuffer( AvatarMe->GetDate());
+	//	Communication->setBuffer( AvatarMe->GetDate());
 
 		// 位置関係が分かるように地面にラインを描画する
 		{
@@ -318,8 +315,8 @@ int WINAPI WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLin
 		// 裏画面の内容を表画面に反映
 		ScreenFlip() ;
 	}
-	netSituation &= ~(1 << 0);
-	netSituation &= ~(1 << 1);
+	//netSituation &= ~(1 << 0);
+	//netSituation &= ~(1 << 1);
 	// ＤＸライブラリの後始末
 	DxLib_End() ;
 	DWORD result;
