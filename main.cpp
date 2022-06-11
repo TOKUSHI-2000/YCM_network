@@ -5,7 +5,7 @@
 // Z,Cキー：カメラの水平角度を変更
 // S,Xキー：カメラの垂直角度を変更
 
-#include "character.hpp"
+#include "avatar.hpp"
 
 // 移動速度
 //#define MOVESPEED			10.0f
@@ -42,6 +42,7 @@ int stringToInt(std::string str)
 }
 */
 
+IPDATA ip;
 
 int WINAPI WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow )
 {

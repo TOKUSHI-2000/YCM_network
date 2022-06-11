@@ -1,4 +1,4 @@
-#include "character.hpp"
+#include "avatar.hpp"
 
 Character::Character()
 {
