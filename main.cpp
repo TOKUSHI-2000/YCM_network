@@ -10,26 +10,11 @@
 // 移動速度
 //#define MOVESPEED			10.0f
 
-// DxChara.x での走りアニメーションの番号
-#define ANIM_RUN			1
-
-// DxChara.x での待機アニメーションの番号
-#define ANIM_NEUTRAL			4
-
-// カメラの回転速度
-#define CAMERA_ANGLE_SPEED		3.0f
-
-// カメラの注視点の高さ
-#define CAMERA_LOOK_AT_HEIGHT		400.0f
-
-// カメラと注視点の距離
-#define CAMERA_LOOK_AT_DISTANCE		2150.0f
-
 // ラインを描く範囲
-#define LINE_AREA_SIZE			10000.0f
+constexpr float LINE_AREA_SIZE = 10000.0f;
 
 // ラインの数
-#define LINE_NUM			50
+constexpr int LINE_NUM = 50;
 
 std::string str[3];
 
