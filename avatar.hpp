@@ -23,6 +23,7 @@ protected:
     int ModelHandle;
     std::string Name;
 
+    int FontHandle;
     int RunFlag;
     int Angle;
     VECTOR MoveVector ;
@@ -55,6 +56,8 @@ public:
     void GetMoveKey();
     void MoveCamera();
     void CameraMove();
+    void DrawName();
+
     netBufferDate GetAvatarStatus();
 };
 

@@ -1,7 +1,10 @@
 #include "avatar.hpp"
 
+VECTOR a;
+
 Character::Character()
 {
+	FontHandle = CreateFontToHandle( NULL, 30, 3, DX_FONTTYPE_EDGE, -1, 3 ) ;
 }
 
 void Character::CharactorSet(short id)
@@ -235,6 +238,7 @@ void MyCharacter::MoveCamera()
 		Position = VAdd( Position, TempMoveVector ) ;
 	}
 
+
 		// カメラの位置と向きを設定
 		{
 			VECTOR TempPosition1 ;
@@ -322,6 +326,17 @@ netBufferDate MyCharacter::GetAvatarStatus()
 	a.date.body.angle = Angle;
 
 	return a;
+}
+
+void MyCharacter::DrawName()
+{
+		VECTOR tmp = Position;
+		tmp.y += 1000.0f;
+		a = ConvWorldPosToScreenPos( tmp);
+		//a.y -= 100;
+		a.x -= 30;
+		SetFontSize(24);
+		DrawStringToHandle( a.x , a.y , (TCHAR*)"ホスト" , GetColor( 255 , 255 , 255 ) , FontHandle , GetColor( 0, 0, 0 ) ) ;
 }
 
 

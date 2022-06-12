@@ -318,6 +318,9 @@ int WINAPI WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLin
 		}
 
 		// 裏画面の内容を表画面に反映
+
+		AvatarMe->DrawName();
+
 		ScreenFlip() ;
 	}
 	//netSituation &= ~(1 << 0);
