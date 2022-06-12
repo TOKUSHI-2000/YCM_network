@@ -45,6 +45,7 @@ void Client::IPcommu()
     
     int time = GetNowCount();
 
+    //データの受信
     while (ipSysCondition & (1 << 0))
     {
 
@@ -54,16 +55,20 @@ void Client::IPcommu()
             
             NetWorkRecv(netHandle[0], &headerBuffer, sizeof(netBufferDate));
             
-            if (headerBuffer.date.header.dateType == 2)
-            {  
+            switch (headerBuffer.date.header.dateType == 2)
+            {
+            case 0:
+                break;
+            case 1:
+
+            case 2:
                 for(int i = 0; i < headerBuffer.date.header.volume; i++)
                 {
                     if (headerBuffer.date.header.id != i)NetWorkRecv(netHandle[0], &netBuffer[0], sizeof(netBufferDate));
                 }
-            }
-            else
-            {
-                
+                break;
+            default:
+                break;
             }
         }
         
