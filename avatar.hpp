@@ -20,7 +20,6 @@ class Character
 {
 private:
 protected:
-    static HANDLE th;
     int ModelHandle;
     std::string Name;
 
@@ -56,6 +55,7 @@ public:
     void GetMoveKey();
     void MoveCamera();
     void CameraMove();
+    netBufferDate GetAvatarStatus();
 };
 
 

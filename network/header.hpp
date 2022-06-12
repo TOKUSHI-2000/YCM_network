@@ -39,6 +39,7 @@ struct netBufferDate
             char id;                    //アバターのID
             float x;                    //X座標
             float y;                    //Y座標
+            float z;                    //Z座標
             float angle;                //回転方向
 
         }body;

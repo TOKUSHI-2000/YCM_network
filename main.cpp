@@ -273,7 +273,7 @@ int WINAPI WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLin
 		
 		AvatarMe->GetMoveKey();
 
-		
+		network->setBuffer(AvatarMe->GetAvatarStatus());
 
 		AvatarMe->MoveCamera();
 		

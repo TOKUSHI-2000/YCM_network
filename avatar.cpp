@@ -313,7 +313,16 @@ void MyCharacter::CameraMove()
 
 }
 
+netBufferDate MyCharacter::GetAvatarStatus()
+{
+	netBufferDate a;
+	a.date.body.x = Position.x;
+	a.date.body.y = Position.y;
+	a.date.body.z = Position.z;
+	a.date.body.angle = Angle;
 
+	return a;
+}
 
 
 
