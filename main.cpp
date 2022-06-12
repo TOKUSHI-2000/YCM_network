@@ -56,9 +56,13 @@ int WINAPI WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLin
 	short charaId;
 	char hostId = false;
 	//static HANDLE th;
+	Host *host;
+	Client *client;
+	NetWork *network;
 
 	Character* Avatar[numOfAvts];
 	MyCharacter* AvatarMe;
+
 
 	signed char myAvaterId = -1;
 
@@ -171,11 +175,17 @@ int WINAPI WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLin
 		
 		AvatarMe->num = 0;
 		Avatar[0] = AvatarMe;//ホストはアバターID0を登録
+
+		host = new Host();	//networkを介して解放
+		network = host;
+		
 	}
 	else if (1)//仮
 	{
 		AvatarMe->num = 0;
 		Avatar[0] = AvatarMe;//ホストはアバターID0を登録
+		client = new Client(ip);
+		network = client;
 	}
 	
 	else
@@ -255,7 +265,7 @@ int WINAPI WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLin
 	SetBackgroundColor( 128, 200, 100 ) ;
 
 	// メインループ
-	while( ProcessMessage() == 0 )
+	while( ProcessMessage() == 0)
 	{
 
 		// 画面のクリア
@@ -311,6 +321,8 @@ int WINAPI WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLin
 	//netSituation &= ~(1 << 0);
 	//netSituation &= ~(1 << 1);
 	// ＤＸライブラリの後始末
+	delete network;
+
 	DxLib_End() ;
 	DWORD result;
 	/*
@@ -319,7 +331,6 @@ int WINAPI WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLin
 		GetExitCodeThread( th, &result);
 	} while (STILL_ACTIVE==result);
 	*/
-
 	// ソフトの終了
 	return 0 ;
 }

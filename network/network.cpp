@@ -1,19 +1,19 @@
 #include "network.hpp"
 
 
-network::network()
+NetWork::NetWork()
 {
     ipSysCondition = 0;
 }
 
 
-network::~network()
+NetWork::~NetWork()
 {
 
 }
 
 
-void network::setBufferX(netBufferDate date, int id)
+void NetWork::setBufferX(netBufferDate date, int id)
 {
     
     netBuffer[id] = date;
@@ -21,7 +21,7 @@ void network::setBufferX(netBufferDate date, int id)
 }
 
 
-netBufferDate network::getBuffer(int i)
+netBufferDate NetWork::getBuffer(int i)
 {
     return netBuffer[i];
 }
