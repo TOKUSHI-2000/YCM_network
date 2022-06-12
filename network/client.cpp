@@ -55,12 +55,14 @@ void Client::IPcommu()
             
             NetWorkRecv(netHandle[0], &headerBuffer, sizeof(netBufferDate));
             
-            switch (headerBuffer.date.header.dateType == 2)
+            switch (headerBuffer.date.header.dateType)
             {
             case 0:
+
                 break;
             case 1:
 
+                break;
             case 2:
                 for(int i = 0; i < headerBuffer.date.header.volume; i++)
                 {

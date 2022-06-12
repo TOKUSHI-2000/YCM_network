@@ -7,8 +7,5 @@
 #include <math.h>
 
 #include <iostream>
-constexpr char numOfAvts = 32;
-
-extern IPDATA ip;
 
 #endif

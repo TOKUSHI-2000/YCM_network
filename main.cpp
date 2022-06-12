@@ -7,6 +7,8 @@
 
 #include "avatar.hpp"
 
+constexpr char numOfAvts = 32;
+
 // 移動速度
 //#define MOVESPEED			10.0f
 
@@ -170,6 +172,12 @@ int WINAPI WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLin
 		AvatarMe->num = 0;
 		Avatar[0] = AvatarMe;//ホストはアバターID0を登録
 	}
+	else if (1)
+	{
+		AvatarMe->num = 0;
+		Avatar[0] = AvatarMe;//ホストはアバターID0を登録
+	}
+	
 	else
 	{
 

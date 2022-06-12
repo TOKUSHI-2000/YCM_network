@@ -11,7 +11,7 @@ void Character::CharactorSet(short id)
 		ModelHandle = MV1LoadModel((TCHAR*)"./Assets/yukkurireimu.mv1");
 		MV1SetScale( ModelHandle, VGet( 150.0f, 150.0f, 150.0f ) );
 	}
-	else if (id == 1)
+	else	//else if (id == 1)
 	{
 		ModelHandle = MV1LoadModel((TCHAR*)"./Assets/yukkurimarisa.mv1");
 		MV1SetScale( ModelHandle, VGet( 150.0f, 150.0f, 150.0f ) );
