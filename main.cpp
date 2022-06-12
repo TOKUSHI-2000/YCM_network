@@ -238,7 +238,7 @@ int WINAPI WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLin
 	//Host a;
 	//Communication = &a;
 	std::cout << "CharactorSetOK\n";
-	//Communication->setBuffer(AvatarMe->GetSetUp());
+	//network->setBuffer(AvatarMe->GetSetUp());
 	std::cout << "BufferセットアップOK";
 
 	// カメラの向きを初期化
