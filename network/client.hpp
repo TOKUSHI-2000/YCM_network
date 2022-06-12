@@ -16,7 +16,7 @@ public:
     Client(IPDATA ipDate_);
 
     void IPcommu() override;
-    void setBuffer(netBufferDate date);
+    void setBuffer(netBufferDate date) override;
 
     void worldSetUpF();
 };

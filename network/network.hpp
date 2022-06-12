@@ -22,6 +22,7 @@ public:
 
     virtual void IPcommu() =0;
     netBufferDate getBuffer(int i);
+    virtual void setBuffer(netBufferDate date) =0;
 };
 
 

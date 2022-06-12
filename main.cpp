@@ -273,6 +273,8 @@ int WINAPI WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLin
 		
 		AvatarMe->GetMoveKey();
 
+		
+
 		AvatarMe->MoveCamera();
 		
 		AvatarMe->CameraMove();
