@@ -5,7 +5,7 @@
 // Z,Cキー：カメラの水平角度を変更
 // S,Xキー：カメラの垂直角度を変更
 
-
+#include <memory>
 
 #include "avatar.hpp"
 
@@ -59,7 +59,7 @@ int WINAPI WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLin
 	char hostId = false;
 	//static HANDLE th;
 
-	NetWork *network;
+	std::unique_ptr<NetWork> network;
 
 	Character* Avatar[numOfAvts];
 	MyCharacter* AvatarMe;
@@ -177,14 +177,14 @@ int WINAPI WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLin
 		AvatarMe->num = 0;
 		Avatar[0] = AvatarMe;//ホストはアバターID0を登録
 
-		network = new Host();	//networkを介して解放
+		network.reset(new Host());	//networkを介して解放
 		
 	}
 	else if (1)//仮
 	{
 		AvatarMe->num = 0;
 		Avatar[0] = AvatarMe;//ホストはアバターID0を登録
-		network = new Client(ip);
+		network.reset( new Client(ip));
 	}
 	
 	else
@@ -328,6 +328,7 @@ int WINAPI WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLin
 
 	DxLib_End() ;
 	DWORD result;
+
 	/*
 	do
 	{
