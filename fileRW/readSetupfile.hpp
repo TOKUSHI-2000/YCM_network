@@ -8,6 +8,12 @@
 using std::string;
 using std::ifstream;
 
+struct cfgDate
+{
+	string type;
+	string data;
+};
+
 
 int stringToInt(std::string str)
 {
@@ -34,8 +40,9 @@ int stringToInt(std::string str)
 
 int readFile()
 {
-    string a[10];
-    ifstream fp( "./settings.txt");   
+	cfgDate cdata[10];
+    string tmpStr[10];
+    ifstream fp( "./settings.txt", std::ios::in);   
 
     if (!fp) {
         std::cout << "ファイルを開けませんでした。\n" << std::endl;
@@ -45,8 +52,30 @@ int readFile()
 
     for (int i = 0; i <10; i++)
     {
-        std::getline(fp, a[0]);
+		if (!fp.eof())
+		{
+			break;
+		}
+		
+        std::getline(fp, tmpStr[0]);
     }
+
+
+
+	for (int i = 0; i < 10; i++)
+	{
+		int a;
+		if (!tmpStr[0].empty())
+		{
+			a = tmpStr[i].find("=");
+			cdata[a].type = tmpStr[a].substr(0,a-1);
+			cdata[a].data = tmpStr[a].substr( a, tmpStr->length());
+		}
+		
+	}
+	
+
+	
     
 
 
