@@ -68,9 +68,26 @@ int readFile()
 		if (!tmpStr[0].empty())
 		{
 			a = tmpStr[i].find("=");
-			cdata[a].type = tmpStr[a].substr(0,a-1);
-			cdata[a].data = tmpStr[a].substr( a, tmpStr->length());
+			cdata[i].type = tmpStr[i].substr(0,a-1);
+			cdata[i].data = tmpStr[i].substr( a, tmpStr->length());
 		}
+
+		for (int i = 0; i < 10; i++)
+		{
+			if (!tmpStr[0].empty())
+			{
+
+				if (cdata[i].type == "Ip")
+				{
+					/* code */
+				}
+				
+
+
+			}
+			
+		}
+		
 		
 	}
 	
