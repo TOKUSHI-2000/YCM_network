@@ -39,15 +39,23 @@ int stringToInt(std::string str)
     }
 }
 
-int readFile(IPDATA& ip, string& name, int& ModelId)
+void readFile(IPDATA& ip, string& name, int& ModelId)
 {
+	ip.d1 = 1;
+	ip.d2 = 1;
+	ip.d3 = 1;
+	ip.d4 = 1;
+
+	name = "Nun";
+	ModelId = 2;
+
 	cfgDate cdata[10];
     string tmpStr[10];
     ifstream fp( "./settings.txt", std::ios::in);   
 
     if (!fp) {
         std::cout << "ファイルを開けませんでした。\n" << std::endl;
-        return 1;
+        return;
     }
 
 
