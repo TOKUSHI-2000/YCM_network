@@ -14,6 +14,7 @@ struct cfgDate
 	string data;
 };
 
+IPDATA ip;
 
 int stringToInt(std::string str)
 {
@@ -38,7 +39,7 @@ int stringToInt(std::string str)
     }
 }
 
-int readFile()
+int readFile(IPDATA& ip, string& name, int& ModelId)
 {
 	cfgDate cdata[10];
     string tmpStr[10];
@@ -68,7 +69,7 @@ int readFile()
 		if (!tmpStr[0].empty())
 		{
 			a = tmpStr[i].find("=");
-			cdata[i].type = tmpStr[i].substr(0,a-1);
+			cdata[i].type = tmpStr[i].substr(0,a);
 			cdata[i].data = tmpStr[i].substr( a, tmpStr->length());
 		}
 
@@ -79,8 +80,52 @@ int readFile()
 
 				if (cdata[i].type == "Ip")
 				{
-					/* code */
+					string tmpCData;
+					string tmpnum;
+
+					tmpCData = cdata[i].type;
+					int point = tmpCData.find(".");
+					tmpnum = tmpCData.substr( 0, point);
+					tmpCData.erase(0,point+1);
+					ip.d1 = stringToInt(tmpnum);
+					
+					tmpCData = cdata[i].type;
+					int point = tmpCData.find(".");
+					tmpnum = tmpCData.substr( 0, point);
+					tmpCData.erase(0,point+1);
+					ip.d2 = stringToInt(tmpnum);
+
+					tmpCData = cdata[i].type;
+					int point = tmpCData.find(".");
+					tmpnum = tmpCData.substr( 0, point);
+					tmpCData.erase(0,point+1);
+					ip.d3 = stringToInt(tmpnum);
+
+					tmpCData = cdata[i].type;
+					int point = tmpCData.find(".");
+					tmpnum = tmpCData.substr( 0, point);
+					tmpCData.erase(0,point+1);
+					ip.d4 = stringToInt(tmpnum);
+
+
+					
 				}
+				else if (cdata[i].type == "Name")
+				{
+					name = cdata[i].data;
+				}
+				else if (cdata[i].type == "Model")
+				{
+					try
+					{
+					ModelId = stoi(cdata[i].data);	
+					}
+					catch(std::invalid_argument e)
+					{
+						ModelId = 2;
+					}
+				}
+				
 				
 
 
