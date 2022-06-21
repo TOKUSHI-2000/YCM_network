@@ -1,8 +1,9 @@
-#ifndef CHARCTER_H
-#define CHARCTER_H
+#ifndef AVATAR_H
+#define AVATAR_H
 
 #include "header.hpp"
 
+#include "network/netWorkBuffer.h"
 
 #define MOVESPEED			15.0f
 
@@ -58,8 +59,9 @@ public:
     void CameraMove();
     void DrawName();
 
-    netBufferDate GetAvatarStatus();
+    NetBufferDate GetAvatarStatus();
 };
+
 
 
 #endif

@@ -8,7 +8,7 @@ Host::Host()
 }
 
 
-netBufferDate setUpdate;
+NetBufferDate setUpdate;
 
 void Host::IPcommu()
 {
@@ -75,7 +75,7 @@ void Host::IPcommu()
         if (netHandle[i] < 0 )
         {
             if (GetNetWorkDataLength( netHandle[i] ) >= 0){
-                NetWorkRecv( netHandle[i], &headerBuffer, sizeof(netBufferDate)) ;
+                NetWorkRecv( netHandle[i], &headerBuffer, sizeof(NetBufferDate)) ;
 
                 switch (headerBuffer.date.header.dateType)
                 {
@@ -83,11 +83,11 @@ void Host::IPcommu()
                 
                     break;
                 case 1:
-                    NetWorkRecv(netHandle[i], &setUpdate, sizeof(netBufferDate)) ;
+                    NetWorkRecv(netHandle[i], &setUpdate, sizeof(NetBufferDate)) ;
                 
                     break;
                 case 2:
-                    NetWorkRecv(netHandle[i], &netBuffer[i], sizeof(netBufferDate));
+                    NetWorkRecv(netHandle[i], &netBuffer[i], sizeof(NetBufferDate));
                     break;
                 default:
                     break;
@@ -122,7 +122,7 @@ void Host::IPcommu()
                 netBuffer[0].date.header.id = i;
 
                 NetWorkSend(netHandle[i], &netBuffer,
-                    netBuffer[0].date.header.volume * sizeof(netBufferDate));
+                    netBuffer[0].date.header.volume * sizeof(NetBufferDate));
             }
         }
 
@@ -133,7 +133,7 @@ void Host::IPcommu()
     StopListenNetWork();
 }
 
-void Host::setBuffer(netBufferDate date)
+void Host::setBuffer(NetBufferDate date)
 {
     
     setBufferX( date, 0);

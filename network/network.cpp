@@ -13,7 +13,7 @@ NetWork::~NetWork()
 }
 
 
-void NetWork::setBufferX(netBufferDate date, int id)
+void NetWork::setBufferX(NetBufferDate date, int id)
 {
     
     netBuffer[id] = date;
@@ -21,7 +21,7 @@ void NetWork::setBufferX(netBufferDate date, int id)
 }
 
 
-netBufferDate NetWork::getBuffer(int i)
+NetBufferDate NetWork::getBuffer(int i)
 {
     return netBuffer[i];
 }

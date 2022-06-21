@@ -7,6 +7,10 @@
 
 #include <memory>
 
+#include "header.hpp"
+
+#include "main.hpp"
+
 #include "avatar.hpp"
 
 constexpr char numOfAvts = 32;

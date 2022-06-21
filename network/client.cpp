@@ -28,9 +28,9 @@ void Client::IPcommu()
     {
         if (GetNetWorkDataLength( netHandle[0]) >= 0)
         {
-            NetWorkRecv(netHandle[0], &headerBuffer, sizeof(netBufferDate));
+            NetWorkRecv(netHandle[0], &headerBuffer, sizeof(NetBufferDate));
             
-            NetWorkRecv(netHandle[0], &netBuffer[0], sizeof(netBufferDate)*
+            NetWorkRecv(netHandle[0], &netBuffer[0], sizeof(NetBufferDate)*
                 headerBuffer.date.header.volume);
             break;
         }
@@ -53,7 +53,7 @@ void Client::IPcommu()
         if (GetNetWorkDataLength( netHandle[0] ) >= 0)
         {
             
-            NetWorkRecv(netHandle[0], &headerBuffer, sizeof(netBufferDate));
+            NetWorkRecv(netHandle[0], &headerBuffer, sizeof(NetBufferDate));
             
             switch (headerBuffer.date.header.dateType)
             {
@@ -66,7 +66,7 @@ void Client::IPcommu()
             case 2:
                 for(int i = 0; i < headerBuffer.date.header.volume; i++)
                 {
-                    if (headerBuffer.date.header.id != i)NetWorkRecv(netHandle[0], &netBuffer[0], sizeof(netBufferDate));
+                    if (headerBuffer.date.header.id != i)NetWorkRecv(netHandle[0], &netBuffer[0], sizeof(NetBufferDate));
                 }
                 break;
             default:
@@ -77,7 +77,7 @@ void Client::IPcommu()
         //データの送信
         if (time >= GetNowCount() + 20)
         {
-            NetWorkSend(netHandle[0], &netBuffer[0], sizeof(netBufferDate));
+            NetWorkSend(netHandle[0], &netBuffer[0], sizeof(NetBufferDate));
         }
         
 
@@ -87,7 +87,7 @@ void Client::IPcommu()
 
 }
 
-void Client::setBuffer(netBufferDate date)
+void Client::setBuffer(NetBufferDate date)
 {
     setBufferX( date, myId);
 }

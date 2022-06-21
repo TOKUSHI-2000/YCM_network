@@ -1,5 +1,6 @@
 #include "avatar.hpp"
 
+
 VECTOR a;
 
 Character::Character()
@@ -317,9 +318,11 @@ void MyCharacter::CameraMove()
 
 }
 
-netBufferDate MyCharacter::GetAvatarStatus()
+
+
+NetBufferDate MyCharacter::GetAvatarStatus()
 {
-	netBufferDate a;
+	NetBufferDate a;
 	a.date.body.x = Position.x;
 	a.date.body.y = Position.y;
 	a.date.body.z = Position.z;

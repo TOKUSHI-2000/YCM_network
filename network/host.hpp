@@ -16,7 +16,7 @@ public:
     Host();
 
     void IPcommu() override;
-    void setBuffer(netBufferDate date) override;
+    void setBuffer(NetBufferDate date) override;
 };
 
 #endif
