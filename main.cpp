@@ -38,6 +38,9 @@ int WINAPI WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLin
 
 	short charaId;
 	char hostId = false;
+
+	std::string name = "Non";
+	int modelId = 2;
 	//static HANDLE th;
 
 	std::unique_ptr<NetWork> network;
@@ -101,53 +104,9 @@ int WINAPI WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLin
 		}
 	}
 
-	{
-		std::string tmpStr;
-		std::string tmpStrNum;
-		int num;
-		int i;
-		for (i = 0; i < 3; i++)
-		{
-			if( 0 == str[i].find("ip:"))break;
-			if (i == 3) i= -1;
-		}
-		if ( i == 0 || i >3)
-		{
-			DxLib_End();
-			return 0;
-		}
-		else
-		{
-			tmpStr = str[i];
-		}
-		
-		printf("%s\n", tmpStr.c_str());
-		tmpStr.erase( 0, 4);
-		num = tmpStr.find(".");
-		tmpStrNum = tmpStr.substr(0,num);
-		tmpStr.erase(0, num + 1);
-		//ip.d1 = stringToInt(tmpStrNum);
+	readFile( ip, name, modelId);
 
-		num = tmpStr.find(".");
-		tmpStrNum = tmpStr.substr(0,num);
-		tmpStr.erase(0, num + 1);
-		//ip.d2 = stringToInt(tmpStrNum);
 
-		num = tmpStr.find(".");
-		tmpStrNum = tmpStr.substr(0,num);
-		tmpStr.erase(0, num + 1);
-		//ip.d3 = stringToInt(tmpStrNum);
-		
-		num = tmpStr.find(".");
-		tmpStrNum = tmpStr.substr(0,num);
-		//ip.d4 = stringToInt(tmpStrNum);
-		
-		
-		ip.d1 = 192;
-		ip.d2 = 168;
-		ip.d3 = 1;
-		ip.d4 = 4;
-	}
 
 	AvatarMe = new MyCharacter();
 	//netSituation &= (1 << 0);

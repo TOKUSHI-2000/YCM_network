@@ -8,6 +8,6 @@
 #include "network/client.hpp"
 
 int stringToInt(std::string str);
-void readFile(IPDATA& ip, std::string& name, int& ModelId);
+extern void readFile(IPDATA& ip, std::string& name, int& ModelId);
 
 #endif
