@@ -10,24 +10,25 @@ struct cfgDate
 
 int stringToInt(std::string str)
 {
-	std::cout << str << "\t";
-	int a = 0;
+	std::cout << "値:" << str << "\n";
+	int tmpnNum = 0;
+
 	try
 	{
-		a = std::stoi(str);
-		return a;
+		tmpnNum = std::stoi(str);
+		return tmpnNum;
 	}
 	catch(std::invalid_argument e)
 	{
 		ClearDrawScreen() ;
-		DrawString( 0, 0, (TCHAR*)"あああああああああエラー\n\tIpアドレスが数字として認識できません", GetColor( 255, 255, 255), true);
+		DrawString( 0, 0, (TCHAR*)"errer:\tIpアドレスが数字として認識できません", GetColor( 255, 255, 255), true);
 		ScreenFlip() ;
 		WaitKey();
 		
 		
 		exit(1);
 	} catch (std::out_of_range e) {
-    return a;
+    return tmpnNum;
     }
 }
 
@@ -66,18 +67,23 @@ void readFile(IPDATA& ip, string& name, int& ModelId)
 	for (int i = 0; i < 10; i++)
 	{
 		int a;
-		if (!tmpStr[0].empty())
+		if (!tmpStr[i].empty())
 		{
 			a = tmpStr[i].find("=");
 			cdata[i].type = tmpStr[i].substr(0,a);
 			cdata[i].data = tmpStr[i].substr( a, tmpStr->length());
 		}
 
-		for (int i = 0; i < 10; i++)
+		
+		
+		
+	}
+	
+	for (int i = 0; i < 10; i++)
 		{
-			if (!tmpStr[0].empty())
+			std::cout << "OK";
+			if (!tmpStr[i].empty())
 			{
-
 				if (cdata[i].type == "Ip")
 				{
 					string tmpCData;
@@ -132,15 +138,12 @@ void readFile(IPDATA& ip, string& name, int& ModelId)
 
 			}
 			
-		}
-		
-		
-	}
-	
+			std::cout << "\n";
 
+		}
 	
     
 
-
+	std::cout << "name:" << name << "\tIP:" << ip.d1 << "." << ip.d2 << "." << ip.d3 << "." << ip.d4; 
 
 }
