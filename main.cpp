@@ -57,6 +57,9 @@ int WINAPI WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLin
 
 	SetMainWindowText((TCHAR*)"ゆっくりしていってね");
 	
+	
+	readFile( ip, name, modelId);
+
 	// ＤＸライブラリの初期化
 	if( DxLib_Init() < 0 ) return -1 ;
 
@@ -67,45 +70,6 @@ int WINAPI WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLin
 	
 	// 描画先を裏画面にする
 	SetDrawScreen( DX_SCREEN_BACK ) ;
-
-
-	fileHandle = FileRead_open((TCHAR*)"./settings.txt", FALSE);
-
-	for (int i =0; FileRead_eof( fileHandle ) == 0 && i<2 ; i++)
-	{
-		TCHAR strc[128]; 
-		FileRead_gets( strc, 128, fileHandle);
-		str[i] = (char*)strc; 
-	}
-	FileRead_close(fileHandle);
-
-	{	
-	
-		int i;
-		for (i = 0; i < 3; i++)
-		{
-			if ( 0 == str[i].find("server:"))break;
-			if (i == 3) i= -1;
-		
-		}
-	
-		if (i == -1)
-		{
-			charaId = 1;
-		}
-		else if (str[i].find("\"h\"") != 5 && str[i].find("\"h\"") != std::string::npos)
-		{
-    		charaId = 0;
-			hostId = 1;
-		}
-		else
-		{
-			charaId = 1;
-		}
-	}
-
-	readFile( ip, name, modelId);
-
 
 
 	AvatarMe = new MyCharacter();

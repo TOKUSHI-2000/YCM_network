@@ -45,8 +45,9 @@ void readFile(IPDATA& ip, string& name, int& ModelId)
 
 	cfgDate cdata[10];
     string tmpStr[10];
-    ifstream fp( "./settings.txt", std::ios::in);   
-
+    //ifstream fp( "./settings.txt", std::ios::in);   
+	FILE* fp;
+	fp = fopen("./settings.txt", "r");
     if (!fp) {
         std::cout << "ファイルを開けませんでした。\n" << std::endl;
         return;
@@ -55,15 +56,16 @@ void readFile(IPDATA& ip, string& name, int& ModelId)
 
     for (int i = 0; i <10; i++)
     {
-		if (fp.eof())
+		if (feof(fp))
 		{
 			std::cout << "ファイルの読み込み終" << i <<"\n";
 			break;
 		}
-		
-        std::getline(fp, tmpStr[i]);
+		char tmp[50];
+        fgets(tmp, 50, fp);
+		tmpStr[i] =tmp;
     }
-
+	fclose(fp);
 
 	for (int i = 0; i < 10; i++)
 	{
