@@ -12,6 +12,7 @@ void Client::IPcommu()
     
     ipSysCondition |= (1 << 0);
 
+    //接続要請    
     while (ipSysCondition & (1 << 0))
     {
         int tmpNetHandle;
@@ -24,6 +25,7 @@ void Client::IPcommu()
         
     }
 
+    //設定ファイルの読み込み
     while (ipSysCondition & (1 << 0))
     {
         if (GetNetWorkDataLength( netHandle[0]) >= 0)
@@ -43,13 +45,14 @@ void Client::IPcommu()
         ProcessMessage();
     }
     
+    //メインループ
     int time = GetNowCount();
 
-    //データの受信
     while (ipSysCondition & (1 << 0))
     {
 
         
+        //データの受信        
         if (GetNetWorkDataLength( netHandle[0] ) >= 0)
         {
             
