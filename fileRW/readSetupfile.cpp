@@ -7,6 +7,20 @@ struct cfgDate
 };
 
 
+struct tokenString
+{
+	int token = 0;
+	string str;
+};
+
+enum token{
+	sTOKEN_NULL,
+	sTOKEN_INT,
+	sTOKEN_STR,
+	sTOKEN_DC,
+	sTOKEN_CODE
+}token;
+
 
 int stringToInt(std::string str)
 {
@@ -35,18 +49,24 @@ int stringToInt(std::string str)
 
 void readFile(IPDATA& ip, string& name, int& ModelId)
 {
+
+	cfgDate cdata[10];
+    string tmpStr[10];
+
+
+	FILE* fp;
+
+	tokenString readStrAndToken[50];
+
+	name = "Nun";
+	ModelId = 2;
+
+	//IPデータの初期化
 	ip.d1 = 1;
 	ip.d2 = 1;
 	ip.d3 = 1;
 	ip.d4 = 1;
 
-	name = "Nun";
-	ModelId = 2;
-
-	cfgDate cdata[10];
-    string tmpStr[10];
-    //ifstream fp( "./settings.txt", std::ios::in);   
-	FILE* fp;
 	fp = fopen("./settings.txt", "r");
     if (!fp) {
         std::cout << "ファイルを開けませんでした。\n" << std::endl;
@@ -66,6 +86,24 @@ void readFile(IPDATA& ip, string& name, int& ModelId)
 		tmpStr[i] =tmp;
     }
 	fclose(fp);
+
+	/*
+	for (int i = 0; i < 10; i++)
+	{
+		if(tmpStr[i].empty())continue;
+		int j=0;
+		while (j = tmpStr[i].length())
+		{
+			
+			
+			
+			
+		}
+		
+	}
+	*/
+
+
 
 	for (int i = 0; i < 10; i++)
 	{
@@ -177,3 +215,27 @@ void readFile(IPDATA& ip, string& name, int& ModelId)
 
 	return;
 }
+
+int a(char chara, char beforechara, string &beforestr, string str)
+{
+
+	if ((chara>='A' && chara <= 'Z')|| chara >= 'a' && chara <= 'z')
+	{
+	return sTOKEN_STR;
+	}
+	else if (chara>='0' && chara<='9')
+	{
+		return sTOKEN_INT;
+	}
+	else if (chara =='\"')
+	{
+		return sTOKEN_DC;
+	}
+	else if (chara == '=')
+	{
+		return sTOKEN_CODE;
+	}
+	return sTOKEN_NULL;
+}
+
+
