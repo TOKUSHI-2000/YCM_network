@@ -84,6 +84,65 @@ int WINAPI WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLin
 
 	AvatarMe = new MyCharacter();
     
+	if (hostId == 1)
+	{
+		
+		AvatarMe->num = 0;
+		Avatar[0] = AvatarMe;//ホストはアバターID0を登録
+		
+	}
+	else if (1)
+	{
+		AvatarMe->num = 0;
+		Avatar[0] = AvatarMe;//ホストはアバターID0を登録
+	}
+	
+	else
+	{
+
+		//DrawString(0,0,"接続中\n  べーた版\n  ",GetColor(255,255,255), true);
+		ProcessMessage();
+		int* netHandle = new int;
+		//netSituation &= ~(1 << 2);
+		DrawFormatString(0,0,GetColor(255,255,255),(TCHAR*)"接続中\n  べーた版\n  IP:%d.%d.%d.%d",ip.d1,ip.d2,ip.d3,ip.d4);
+		ScreenFlip();
+		while (!(1/*netSituation & (1 << 2)*/))
+		{
+			if ( ProcessMessage() != 0)
+			{
+				
+				//netSituation &= ~(1 << 0);
+				//netSituation &= ~(1 << 1);
+
+				DxLib_End();
+				return 0;
+			}
+			printf("setting now");
+		}
+		
+		std::cout << *netHandle;
+		while ( *netHandle < 0)
+		{
+			if ( ProcessMessage() != 0)
+			{
+				
+				//netSituation &= ~(1 << 0);
+				//netSituation &= ~(1 << 1);
+
+				DxLib_End();
+				return 0;
+			}
+			
+			printf("%d", *netHandle);
+		}
+		printf("OK");
+		AvatarMe->num = NetWorkRecv( *netHandle, &AvatarMe->num , 1 ) ;
+		Avatar[AvatarMe->num] = AvatarMe;
+		
+		//th=CreateThread(0,0,(LPTHREAD_START_ROUTINE)Client,(LPVOID)1,0,NULL);
+		
+	}
+
 	AvatarMe->CharactorSet(charaId);
 	//Host a;
 	//Communication = &a;
