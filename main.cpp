@@ -41,9 +41,9 @@ int WINAPI WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLin
 
 	std::string name = "Non";
 	int modelId = 2;
-	//static HANDLE th;
+	static HANDLE th;
 
-	std::unique_ptr<NetWork> network;
+	//std::unique_ptr<NetWork> network;
 
 	Character* Avatar[numOfAvts];
 	MyCharacter* AvatarMe;
@@ -55,10 +55,20 @@ int WINAPI WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLin
 	ChangeWindowMode( TRUE ) ;
 	SetAlwaysRunFlag( TRUE );
 
-	SetMainWindowText((TCHAR*)"ゆっくりしていってね");
 	
 	
 	readFile( ip, name, modelId);
+	//host = false;
+	SystemBits |= (1<<2);
+	th=CreateThread(0,0,(LPTHREAD_START_ROUTINE)netSetUp,(LPVOID)&ip,0,NULL);
+
+	while (SystemBits & (1<<2))
+	{
+		/* code */
+	}
+	
+
+	SetMainWindowText((TCHAR*)"ゆっくりしていってね");
 
 	// ＤＸライブラリの初期化
 	if( DxLib_Init() < 0 ) return -1 ;
@@ -73,69 +83,6 @@ int WINAPI WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLin
 
 
 	AvatarMe = new MyCharacter();
-	//netSituation &= (1 << 0);
-	//netSituation &= (1 << 1);
-	if (hostId == 1)
-	{
-		
-		AvatarMe->num = 0;
-		Avatar[0] = AvatarMe;//ホストはアバターID0を登録
-
-		network.reset(new Host());	//networkを介して解放
-		
-	}
-	else if (1)//仮
-	{
-		AvatarMe->num = 0;
-		Avatar[0] = AvatarMe;//ホストはアバターID0を登録
-		network.reset( new Client(ip));
-	}
-	
-	else
-	{
-
-		//DrawString(0,0,"接続中\n  べーた版\n  ",GetColor(255,255,255), true);
-		ProcessMessage();
-		int* netHandle = new int;
-		//netSituation &= ~(1 << 2);
-		DrawFormatString(0,0,GetColor(255,255,255),(TCHAR*)"接続中\n  べーた版\n  IP:%d.%d.%d.%d",ip.d1,ip.d2,ip.d3,ip.d4);
-		ScreenFlip();
-		while (!(1/*netSituation & (1 << 2)*/))
-		{
-			if ( ProcessMessage() != 0)
-			{
-				
-				//netSituation &= ~(1 << 0);
-				//netSituation &= ~(1 << 1);
-
-				DxLib_End();
-				return 0;
-			}
-			printf("setting now");
-		}
-		
-		std::cout << *netHandle;
-		while ( *netHandle < 0)
-		{
-			if ( ProcessMessage() != 0)
-			{
-				
-				//netSituation &= ~(1 << 0);
-				//netSituation &= ~(1 << 1);
-
-				DxLib_End();
-				return 0;
-			}
-			
-			printf("%d", *netHandle);
-		}
-		printf("OK");
-		AvatarMe->num = NetWorkRecv( *netHandle, &AvatarMe->num , 1 ) ;
-		Avatar[AvatarMe->num] = AvatarMe;
-		
-		//th=CreateThread(0,0,(LPTHREAD_START_ROUTINE)Client,(LPVOID)1,0,NULL);
-		
-	}
     
 	AvatarMe->CharactorSet(charaId);
 	//Host a;
@@ -168,7 +115,7 @@ int WINAPI WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLin
 	SetBackgroundColor( 128, 200, 100 ) ;
 
 	// メインループ
-	while( ProcessMessage() == 0)
+	while( (ProcessMessage() == 0) && !(SystemBits & (1<<1)))
 	{
 
 		// 画面のクリア
@@ -176,7 +123,7 @@ int WINAPI WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLin
 		
 		AvatarMe->GetMoveKey();
 
-		network->setBuffer(AvatarMe->GetAvatarStatus());
+		//network->setBuffer(AvatarMe->GetAvatarStatus());
 
 		AvatarMe->MoveCamera();
 		
@@ -233,12 +180,23 @@ int WINAPI WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLin
 	DxLib_End() ;
 	DWORD result;
 
+	SystemBits &= ~(1 << 0);
+
+	while (!(SystemBits & (1 << 1)))
+	{
+		/* code */
+	}
+	
 	/*
 	do
 	{
 		GetExitCodeThread( th, &result);
 	} while (STILL_ACTIVE==result);
 	*/
+
 	// ソフトの終了
+
+	std::cout << "システムを終了\n";
+
 	return 0 ;
 }

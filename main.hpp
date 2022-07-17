@@ -4,8 +4,9 @@
 #include "string"
 #include <DxLib.h>
 
-#include "network/host.hpp"
-#include "network/client.hpp"
+//#include "network/host.hpp"
+//#include "network/client.hpp"
+#include "_network/network.hpp"
 
 int stringToInt(std::string str);
 extern void readFile(IPDATA& ip, std::string& name, int& ModelId);

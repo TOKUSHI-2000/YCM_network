@@ -1,9 +1,9 @@
 
 g++ -c avatar.cpp main.cpp -DDX_GCC_COMPILE --exec-charset=cp932
 
-@cd network
+@cd _network
 
-g++ -c network.cpp host.cpp client.cpp -DDX_GCC_COMPILE -O2 --exec-charset=cp932
+g++ -c network.cpp netfunc.cpp -DDX_GCC_COMPILE -O2 --exec-charset=cp932
 
 @cd ..
 
@@ -13,7 +13,7 @@ g++ -c readSetupfile.cpp -DDX_GCC_COMPILE -O2 --exec-charset=cp932
 
 @cd ..
 
-g++ avatar.o main.o network/network.o network/host.o network/client.o fileRW/readSetupfile.o -O2 -static -lDxLib -lDxUseCLib -lDxDrawFunc -ljpeg -lpng -lzlib -ltiff -ltheora_static -lvorbis_static -lvorbisfile_static -logg_static -lbulletdynamics -lbulletcollision -lbulletmath -lopusfile -lopus -lsilk_common -lcelt
+g++ avatar.o main.o _network/network.o _network/netfunc.o fileRW/readSetupfile.o -O2 -static -lDxLib -lDxUseCLib -lDxDrawFunc -ljpeg -lpng -lzlib -ltiff -ltheora_static -lvorbis_static -lvorbisfile_static -logg_static -lbulletdynamics -lbulletcollision -lbulletmath -lopusfile -lopus -lsilk_common -lcelt
 
 @cd network
 
