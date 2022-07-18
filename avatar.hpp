@@ -5,7 +5,7 @@
 
 #include "network/netWorkBuffer.h"
 
-#define MOVESPEED			15.0f
+#define MOVESPEED			20.0f
 
 #define CAMERA_ANGLE_SPEED		3.0f
 

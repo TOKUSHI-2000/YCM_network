@@ -93,6 +93,7 @@ MyCharacter::~MyCharacter()
 //キャラクターの移動キー
 void MyCharacter::GetMoveKey()
 {
+	
     // 移動ベクトルを初期化
 	MoveVector = VGet( 0.0f, 0.0f, 0.0f ) ;
 
@@ -237,6 +238,7 @@ void MyCharacter::MoveCamera()
 
         //体を移動する
 		Position = VAdd( Position, TempMoveVector ) ;
+		
 	}
 
 
@@ -273,8 +275,7 @@ void MyCharacter::MoveCamera()
 			// カメラの設定に反映する
 			SetCameraPositionAndTarget_UpVecY( CameraPosition, CameraLookAtPosition );
 		}
-	
-
+	return;
 }
 
 void MyCharacter::CameraMove()

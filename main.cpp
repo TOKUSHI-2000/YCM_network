@@ -58,14 +58,11 @@ int WINAPI WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLin
 	
 	
 	readFile( ip, name, modelId);
-	//host = false;
-	SystemBits |= (1<<2);
-	th=CreateThread(0,0,(LPTHREAD_START_ROUTINE)netSetUp,(LPVOID)&ip,0,NULL);
+	host = false;
+	SystemBits &= ~(1<<0);
+	SystemBits & (1<<2);
+	//th=CreateThread(0,0,(LPTHREAD_START_ROUTINE)netSetUp,(LPVOID)&ip,0,NULL);
 
-	while (SystemBits & (1<<2))
-	{
-		/* code */
-	}
 	
 
 	SetMainWindowText((TCHAR*)"ゆっくりしていってね");
@@ -73,6 +70,18 @@ int WINAPI WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLin
 	// ＤＸライブラリの初期化
 	if( DxLib_Init() < 0 ) return -1 ;
 
+	
+	while (SystemBits & (1<<2))
+	{
+		if(ProcessMessage() != 0)
+		{
+			SystemBits |= (1<<0);
+			DxLib_End();
+			return 0;
+		}
+	}
+
+	std::cout << "通信システム起動\n";
 	for (char i = 0; i < 32; i++)
 	{
 		Avatar[i] = nullptr;
@@ -172,16 +181,16 @@ int WINAPI WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLin
 
 	// 背景の色を設定する
 	SetBackgroundColor( 128, 200, 100 ) ;
-
+	int time = GetNowCount();
 	// メインループ
 	while( (ProcessMessage() == 0) && !(SystemBits & (1<<1)))
 	{
-
 		// 画面のクリア
 		ClearDrawScreen() ;
-		
-		AvatarMe->GetMoveKey();
 
+		AvatarMe->GetMoveKey();/*==============================クライアント時処理落ち大*/
+
+		
 		//network->setBuffer(AvatarMe->GetAvatarStatus());
 
 		AvatarMe->MoveCamera();
@@ -193,9 +202,9 @@ int WINAPI WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLin
 			if(Avatar[i] != nullptr)
 				Avatar[i]->DrawModel();
 		}
-		
+		std::cout << "描画完";
 
-	//	Communication->setBuffer( AvatarMe->GetDate());
+		//	Communication->setBuffer( AvatarMe->GetDate());
 
 		// 位置関係が分かるように地面にラインを描画する
 		{
@@ -229,19 +238,21 @@ int WINAPI WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLin
 		// 裏画面の内容を表画面に反映
 
 		AvatarMe->DrawName();
-
+		std::cout << "OK\t";
 		ScreenFlip() ;
+		while( GetNowCount() - time < 17 ){}
+		time = GetNowCount();
 	}
 	//netSituation &= ~(1 << 0);
 	//netSituation &= ~(1 << 1);
 	// ＤＸライブラリの後始末
-
+	
 	DxLib_End() ;
 	DWORD result;
 
 	SystemBits &= ~(1 << 0);
 
-	while (!(SystemBits & (1 << 1)))
+	while (!(SystemBits & (1<<1)))
 	{
 		/* code */
 	}
