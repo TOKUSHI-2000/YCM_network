@@ -5,15 +5,7 @@
 // Z,Cキー：カメラの水平角度を変更
 // S,Xキー：カメラの垂直角度を変更
 
-#include <memory>
-
-#include "header.hpp"
-
-#include "main.hpp"
-
 #include "avatar.hpp"
-
-constexpr char numOfAvts = 32;
 
 // 移動速度
 //#define MOVESPEED			10.0f
@@ -25,7 +17,30 @@ constexpr float LINE_AREA_SIZE = 10000.0f;
 constexpr int LINE_NUM = 50;
 
 std::string str[3];
-
+/*
+int stringToInt(std::string str)
+{
+	std::cout << str << "\t";
+	int a = 0;
+	try
+	{
+		a = std::stoi(str);
+		return a;
+	}
+	catch(std::invalid_argument e)
+	{
+		ClearDrawScreen() ;
+		DrawString( 0, 0, (TCHAR*)"あああああああああエラー\n\tIpアドレスが数字として認識できません", GetColor( 255, 255, 255), true);
+		ScreenFlip() ;
+		WaitKey();
+		
+		
+		exit(1);
+	} catch (std::out_of_range e) {
+    return a;
+    }
+}
+*/
 
 IPDATA ip;
 
@@ -38,16 +53,10 @@ int WINAPI WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLin
 
 	short charaId;
 	char hostId = false;
-
-	std::string name = "Non";
-	int modelId = 2;
 	static HANDLE th;
-
-	//std::unique_ptr<NetWork> network;
 
 	Character* Avatar[numOfAvts];
 	MyCharacter* AvatarMe;
-
 
 	signed char myAvaterId = -1;
 
@@ -55,33 +64,11 @@ int WINAPI WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLin
 	ChangeWindowMode( TRUE ) ;
 	SetAlwaysRunFlag( TRUE );
 
-	
-	
-	readFile( ip, name, modelId);
-	host = false;
-	SystemBits &= ~(1<<0);
-	SystemBits & (1<<2);
-	//th=CreateThread(0,0,(LPTHREAD_START_ROUTINE)netSetUp,(LPVOID)&ip,0,NULL);
-
-	
-
 	SetMainWindowText((TCHAR*)"ゆっくりしていってね");
-
+	
 	// ＤＸライブラリの初期化
 	if( DxLib_Init() < 0 ) return -1 ;
 
-	
-	while (SystemBits & (1<<2))
-	{
-		if(ProcessMessage() != 0)
-		{
-			SystemBits |= (1<<0);
-			DxLib_End();
-			return 0;
-		}
-	}
-
-	std::cout << "通信システム起動\n";
 	for (char i = 0; i < 32; i++)
 	{
 		Avatar[i] = nullptr;
@@ -91,21 +78,98 @@ int WINAPI WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLin
 	SetDrawScreen( DX_SCREEN_BACK ) ;
 
 
+	fileHandle = FileRead_open((TCHAR*)"./settings.txt", FALSE);
+
+	for (int i =0; FileRead_eof( fileHandle ) == 0 && i<2 ; i++)
+	{
+		TCHAR strc[128]; 
+		FileRead_gets( strc, 128, fileHandle);
+		str[i] = (char*)strc; 
+	}
+	FileRead_close(fileHandle);
+
+	{	
+	
+		int i;
+		for (i = 0; i < 3; i++)
+		{
+			if ( 0 == str[i].find("server:"))break;
+			if (i == 3) i= -1;
+		
+		}
+	
+		if (i == -1)
+		{
+			charaId = 1;
+		}
+		else if (str[i].find("\"h\"") != 5 && str[i].find("\"h\"") != std::string::npos)
+		{
+    		charaId = 0;
+			hostId = 1;
+		}
+		else
+		{
+			charaId = 1;
+		}
+	}
+
+	{
+		std::string tmpStr;
+		std::string tmpStrNum;
+		int num;
+		int i;
+		for (i = 0; i < 3; i++)
+		{
+			if( 0 == str[i].find("ip:"))break;
+			if (i == 3) i= -1;
+		}
+		if ( i == 0 || i >3)
+		{
+			DxLib_End();
+			return 0;
+		}
+		else
+		{
+			tmpStr = str[i];
+		}
+		
+		printf("%s\n", tmpStr.c_str());
+		tmpStr.erase( 0, 4);
+		num = tmpStr.find(".");
+		tmpStrNum = tmpStr.substr(0,num);
+		tmpStr.erase(0, num + 1);
+		//ip.d1 = stringToInt(tmpStrNum);
+
+		num = tmpStr.find(".");
+		tmpStrNum = tmpStr.substr(0,num);
+		tmpStr.erase(0, num + 1);
+		//ip.d2 = stringToInt(tmpStrNum);
+
+		num = tmpStr.find(".");
+		tmpStrNum = tmpStr.substr(0,num);
+		tmpStr.erase(0, num + 1);
+		//ip.d3 = stringToInt(tmpStrNum);
+		
+		num = tmpStr.find(".");
+		tmpStrNum = tmpStr.substr(0,num);
+		//ip.d4 = stringToInt(tmpStrNum);
+		
+		
+		ip.d1 = 192;
+		ip.d2 = 168;
+		ip.d3 = 1;
+		ip.d4 = 4;
+	}
+
 	AvatarMe = new MyCharacter();
-    
+	//netSituation &= (1 << 0);
+	//netSituation &= (1 << 1);
 	if (hostId == 1)
 	{
 		
 		AvatarMe->num = 0;
 		Avatar[0] = AvatarMe;//ホストはアバターID0を登録
-		
 	}
-	else if (1)
-	{
-		AvatarMe->num = 0;
-		Avatar[0] = AvatarMe;//ホストはアバターID0を登録
-	}
-	
 	else
 	{
 
@@ -151,12 +215,12 @@ int WINAPI WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLin
 		//th=CreateThread(0,0,(LPTHREAD_START_ROUTINE)Client,(LPVOID)1,0,NULL);
 		
 	}
-
+    
 	AvatarMe->CharactorSet(charaId);
 	//Host a;
 	//Communication = &a;
 	std::cout << "CharactorSetOK\n";
-	//network->setBuffer(AvatarMe->GetSetUp());
+	//Communication->setBuffer(AvatarMe->GetSetUp());
 	std::cout << "BufferセットアップOK";
 
 	// カメラの向きを初期化
@@ -181,17 +245,15 @@ int WINAPI WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLin
 
 	// 背景の色を設定する
 	SetBackgroundColor( 128, 200, 100 ) ;
-	int time = GetNowCount();
+
 	// メインループ
-	while( (ProcessMessage() == 0) && !(SystemBits & (1<<1)))
+	while( ProcessMessage() == 0 )
 	{
+
 		// 画面のクリア
 		ClearDrawScreen() ;
-
-		AvatarMe->GetMoveKey();/*==============================クライアント時処理落ち大*/
-
 		
-		//network->setBuffer(AvatarMe->GetAvatarStatus());
+		AvatarMe->GetMoveKey();
 
 		AvatarMe->MoveCamera();
 		
@@ -202,9 +264,9 @@ int WINAPI WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLin
 			if(Avatar[i] != nullptr)
 				Avatar[i]->DrawModel();
 		}
-		std::cout << "描画完";
+		
 
-		//	Communication->setBuffer( AvatarMe->GetDate());
+	//	Communication->setBuffer( AvatarMe->GetDate());
 
 		// 位置関係が分かるように地面にラインを描画する
 		{
@@ -236,37 +298,19 @@ int WINAPI WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLin
 		}
 
 		// 裏画面の内容を表画面に反映
-
-		AvatarMe->DrawName();
-		std::cout << "OK\t";
 		ScreenFlip() ;
-		while( GetNowCount() - time < 17 ){}
-		time = GetNowCount();
 	}
 	//netSituation &= ~(1 << 0);
 	//netSituation &= ~(1 << 1);
 	// ＤＸライブラリの後始末
-	
 	DxLib_End() ;
 	DWORD result;
-
-	SystemBits &= ~(1 << 0);
-
-	while (!(SystemBits & (1<<1)))
-	{
-		/* code */
-	}
-	
-	/*
 	do
 	{
 		GetExitCodeThread( th, &result);
 	} while (STILL_ACTIVE==result);
-	*/
+	
 
 	// ソフトの終了
-
-	std::cout << "システムを終了\n";
-
 	return 0 ;
 }

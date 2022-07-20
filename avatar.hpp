@@ -1,11 +1,10 @@
-#ifndef AVATAR_H
-#define AVATAR_H
+#ifndef CHARCTER_H
+#define CHARCTER_H
 
 #include "header.hpp"
 
-#include "network/netWorkBuffer.h"
 
-#define MOVESPEED			20.0f
+#define MOVESPEED			15.0f
 
 #define CAMERA_ANGLE_SPEED		3.0f
 
@@ -21,10 +20,10 @@ class Character
 {
 private:
 protected:
+    static HANDLE th;
     int ModelHandle;
     std::string Name;
 
-    int FontHandle;
     int RunFlag;
     int Angle;
     VECTOR MoveVector ;
@@ -57,11 +56,7 @@ public:
     void GetMoveKey();
     void MoveCamera();
     void CameraMove();
-    void DrawName();
-
-    NetBufferDate GetAvatarStatus();
 };
-
 
 
 #endif

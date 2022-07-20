@@ -1,11 +1,7 @@
 #include "avatar.hpp"
 
-
-VECTOR a;
-
 Character::Character()
 {
-	FontHandle = CreateFontToHandle( NULL, 30, 3, DX_FONTTYPE_EDGE, -1, 3 ) ;
 }
 
 void Character::CharactorSet(short id)
@@ -15,7 +11,7 @@ void Character::CharactorSet(short id)
 		ModelHandle = MV1LoadModel((TCHAR*)"./Assets/yukkurireimu.mv1");
 		MV1SetScale( ModelHandle, VGet( 150.0f, 150.0f, 150.0f ) );
 	}
-	else	//else if (id == 1)
+	else if (id == 1)
 	{
 		ModelHandle = MV1LoadModel((TCHAR*)"./Assets/yukkurimarisa.mv1");
 		MV1SetScale( ModelHandle, VGet( 150.0f, 150.0f, 150.0f ) );
@@ -93,7 +89,6 @@ MyCharacter::~MyCharacter()
 //キャラクターの移動キー
 void MyCharacter::GetMoveKey()
 {
-	
     // 移動ベクトルを初期化
 	MoveVector = VGet( 0.0f, 0.0f, 0.0f ) ;
 
@@ -238,9 +233,7 @@ void MyCharacter::MoveCamera()
 
         //体を移動する
 		Position = VAdd( Position, TempMoveVector ) ;
-		
 	}
-
 
 		// カメラの位置と向きを設定
 		{
@@ -275,7 +268,8 @@ void MyCharacter::MoveCamera()
 			// カメラの設定に反映する
 			SetCameraPositionAndTarget_UpVecY( CameraPosition, CameraLookAtPosition );
 		}
-	return;
+	
+
 }
 
 void MyCharacter::CameraMove()
@@ -320,28 +314,6 @@ void MyCharacter::CameraMove()
 }
 
 
-
-NetBufferDate MyCharacter::GetAvatarStatus()
-{
-	NetBufferDate a;
-	a.date.body.x = Position.x;
-	a.date.body.y = Position.y;
-	a.date.body.z = Position.z;
-	a.date.body.angle = Angle;
-
-	return a;
-}
-
-void MyCharacter::DrawName()
-{
-		VECTOR tmp = Position;
-		tmp.y += 1000.0f;
-		a = ConvWorldPosToScreenPos( tmp);
-		//a.y -= 100;
-		a.x -= 30;
-		SetFontSize(24);
-		DrawStringToHandle( a.x , a.y , (TCHAR*)"ホスト" , GetColor( 255 , 255 , 255 ) , FontHandle , GetColor( 0, 0, 0 ) ) ;
-}
 
 
 
