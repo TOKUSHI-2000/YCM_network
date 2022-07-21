@@ -4,8 +4,8 @@
 // 方向キー：キャラクターモデル移動
 // Z,Cキー：カメラの水平角度を変更
 // S,Xキー：カメラの垂直角度を変更
-
 #include "avatar.hpp"
+#include "main.hpp"
 
 // 移動速度
 //#define MOVESPEED			10.0f
@@ -16,7 +16,6 @@ constexpr float LINE_AREA_SIZE = 10000.0f;
 // ラインの数
 constexpr int LINE_NUM = 50;
 
-std::string str[3];
 /*
 int stringToInt(std::string str)
 {
@@ -51,7 +50,7 @@ int WINAPI WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLin
 	
 	int fileHandle;
 
-	short charaId;
+	short charaId =0;
 	char hostId = false;
 	static HANDLE th;
 
@@ -59,6 +58,11 @@ int WINAPI WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLin
 	MyCharacter* AvatarMe;
 
 	signed char myAvaterId = -1;
+
+	ip.d1=1;
+	ip.d2=1;
+	ip.d3=1;
+	ip.d4=1;
 
 	// ウインドウモードで起動
 	ChangeWindowMode( TRUE ) ;
@@ -77,98 +81,15 @@ int WINAPI WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLin
 	// 描画先を裏画面にする
 	SetDrawScreen( DX_SCREEN_BACK ) ;
 
-
-	fileHandle = FileRead_open((TCHAR*)"./settings.txt", FALSE);
-
-	for (int i =0; FileRead_eof( fileHandle ) == 0 && i<2 ; i++)
-	{
-		TCHAR strc[128]; 
-		FileRead_gets( strc, 128, fileHandle);
-		str[i] = (char*)strc; 
-	}
-	FileRead_close(fileHandle);
-
-	{	
-	
-		int i;
-		for (i = 0; i < 3; i++)
-		{
-			if ( 0 == str[i].find("server:"))break;
-			if (i == 3) i= -1;
-		
-		}
-	
-		if (i == -1)
-		{
-			charaId = 1;
-		}
-		else if (str[i].find("\"h\"") != 5 && str[i].find("\"h\"") != std::string::npos)
-		{
-    		charaId = 0;
-			hostId = 1;
-		}
-		else
-		{
-			charaId = 1;
-		}
-	}
-
-	{
-		std::string tmpStr;
-		std::string tmpStrNum;
-		int num;
-		int i;
-		for (i = 0; i < 3; i++)
-		{
-			if( 0 == str[i].find("ip:"))break;
-			if (i == 3) i= -1;
-		}
-		if ( i == 0 || i >3)
-		{
-			DxLib_End();
-			return 0;
-		}
-		else
-		{
-			tmpStr = str[i];
-		}
-		
-		printf("%s\n", tmpStr.c_str());
-		tmpStr.erase( 0, 4);
-		num = tmpStr.find(".");
-		tmpStrNum = tmpStr.substr(0,num);
-		tmpStr.erase(0, num + 1);
-		//ip.d1 = stringToInt(tmpStrNum);
-
-		num = tmpStr.find(".");
-		tmpStrNum = tmpStr.substr(0,num);
-		tmpStr.erase(0, num + 1);
-		//ip.d2 = stringToInt(tmpStrNum);
-
-		num = tmpStr.find(".");
-		tmpStrNum = tmpStr.substr(0,num);
-		tmpStr.erase(0, num + 1);
-		//ip.d3 = stringToInt(tmpStrNum);
-		
-		num = tmpStr.find(".");
-		tmpStrNum = tmpStr.substr(0,num);
-		//ip.d4 = stringToInt(tmpStrNum);
-		
-		
-		ip.d1 = 192;
-		ip.d2 = 168;
-		ip.d3 = 1;
-		ip.d4 = 4;
-	}
-
 	AvatarMe = new MyCharacter();
 	//netSituation &= (1 << 0);
 	//netSituation &= (1 << 1);
-	if (hostId == 1)
+	if (1/*hostId == 1*/)
 	{
 		
 		AvatarMe->num = 0;
 		Avatar[0] = AvatarMe;//ホストはアバターID0を登録
+		std::cout << "ホスト\n";
 	}
 	else
 	{
@@ -257,12 +178,12 @@ int WINAPI WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLin
 
 		AvatarMe->MoveCamera();
 		
-		AvatarMe->CameraMove();
 
 		for (char i = 0; i <32; i++)
 		{
-			if(Avatar[i] != nullptr)
+			if(Avatar[i] != nullptr){
 				Avatar[i]->DrawModel();
+			}
 		}
 		
 

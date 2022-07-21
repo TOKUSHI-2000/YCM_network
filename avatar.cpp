@@ -1,3 +1,4 @@
+#define AVATAR_CPP
 #include "avatar.hpp"
 
 Character::Character()
@@ -6,10 +7,14 @@ Character::Character()
 
 void Character::CharactorSet(short id)
 {
-	if (id == 0)
+	if (1/*id == 0*/)
 	{
+		ModelHandle = -1;
 		ModelHandle = MV1LoadModel((TCHAR*)"./Assets/yukkurireimu.mv1");
+		std::cout << ModelHandle << "\n";
 		MV1SetScale( ModelHandle, VGet( 150.0f, 150.0f, 150.0f ) );
+		
+		//MV1SetScale( ModelHandle, VGet( 5.0f, 5.0f, 5.0f) );
 	}
 	else if (id == 1)
 	{
@@ -188,7 +193,43 @@ void MyCharacter::GetMoveKey()
 //カメラの移動
 void MyCharacter::MoveCamera()
 {
+	
+	// ZCSXキーでカメラの操作
+		if( CheckHitKey( KEY_INPUT_RIGHT ) == 1 )
+		{
+			CameraHAngle += CAMERA_ANGLE_SPEED ;
+			if( CameraHAngle >= 180.0f )
+			{
+				CameraHAngle -= 360.0f ;
+			}
+		}
 
+		if( CheckHitKey( KEY_INPUT_LEFT ) == 1 )
+		{
+			CameraHAngle -= CAMERA_ANGLE_SPEED ;
+			if( CameraHAngle <= -180.0f )
+			{
+				CameraHAngle += 360.0f ;
+			}
+		}
+
+		if( CheckHitKey( KEY_INPUT_UP ) == 1 )
+		{
+			CameraVAngle += CAMERA_ANGLE_SPEED ;
+			if( CameraVAngle >= 80.0f )
+			{
+				CameraVAngle = 80.0f ;
+			}
+		}
+
+		if( CheckHitKey( KEY_INPUT_DOWN ) == 1 )
+		{
+			CameraVAngle -= CAMERA_ANGLE_SPEED ;
+			if( CameraVAngle <= 0.0f )
+			{
+				CameraVAngle = 0.0f ;
+			}
+		}
     // 方向入力に従ってキャラクターの移動ベクトルと向きを設定
 	/*if( CheckHitKey( KEY_INPUT_A ) == 1 )
 	{
@@ -269,47 +310,6 @@ void MyCharacter::MoveCamera()
 			SetCameraPositionAndTarget_UpVecY( CameraPosition, CameraLookAtPosition );
 		}
 	
-
-}
-
-void MyCharacter::CameraMove()
-{
-	// ZCSXキーでカメラの操作
-		if( CheckHitKey( KEY_INPUT_RIGHT ) == 1 )
-		{
-			CameraHAngle += CAMERA_ANGLE_SPEED ;
-			if( CameraHAngle >= 180.0f )
-			{
-				CameraHAngle -= 360.0f ;
-			}
-		}
-
-		if( CheckHitKey( KEY_INPUT_LEFT ) == 1 )
-		{
-			CameraHAngle -= CAMERA_ANGLE_SPEED ;
-			if( CameraHAngle <= -180.0f )
-			{
-				CameraHAngle += 360.0f ;
-			}
-		}
-
-		if( CheckHitKey( KEY_INPUT_UP ) == 1 )
-		{
-			CameraVAngle += CAMERA_ANGLE_SPEED ;
-			if( CameraVAngle >= 80.0f )
-			{
-				CameraVAngle = 80.0f ;
-			}
-		}
-
-		if( CheckHitKey( KEY_INPUT_DOWN ) == 1 )
-		{
-			CameraVAngle -= CAMERA_ANGLE_SPEED ;
-			if( CameraVAngle <= 0.0f )
-			{
-				CameraVAngle = 0.0f ;
-			}
-		}
 
 }
 

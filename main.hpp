@@ -1,14 +1,10 @@
 #ifndef MAIN_HPP
 #define MAIN_HPP
 
-#include "string"
-#include <DxLib.h>
+#include <string.h>
+#include "header.hpp"
 
-//#include "network/host.hpp"
-//#include "network/client.hpp"
-#include "_network/network.hpp"
-
-int stringToInt(std::string str);
-extern void readFile(IPDATA& ip, std::string& name, int& ModelId);
+//int stringToInt(std::string str);
+//extern void readFile(IPDATA& ip, std::string& name, int& ModelId);
 
 #endif

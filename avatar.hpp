@@ -2,8 +2,9 @@
 #define CHARCTER_H
 
 #include "header.hpp"
+#ifdef AVATAR_CPP
 
-
+#endif
 #define MOVESPEED			15.0f
 
 #define CAMERA_ANGLE_SPEED		3.0f
@@ -15,7 +16,6 @@
 #define CAMERA_LOOK_AT_DISTANCE		2150.0f
 
 extern std::string str[3];
-
 class Character
 {
 private:
@@ -55,7 +55,6 @@ public:
 
     void GetMoveKey();
     void MoveCamera();
-    void CameraMove();
 };
 
 
