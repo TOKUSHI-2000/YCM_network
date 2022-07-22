@@ -16,7 +16,7 @@
 #define CAMERA_LOOK_AT_DISTANCE		2150.0f
 
 extern std::string str[3];
-class Character
+class Avatar
 {
 private:
 
@@ -32,8 +32,8 @@ public:
     VECTOR Position ;
     /* data */
 public:
-    Character();
-    ~Character();
+    Avatar();
+    ~Avatar();
     void setModel(short id);
     void drawModel();
     virtual void moveModel(int data);//int は仮
@@ -42,7 +42,7 @@ public:
 
 
 
-class MyCharacter :public Character
+class MyAvatar :public Avatar
 {
 private:
     
@@ -52,8 +52,8 @@ private:
 	float  CosParam ;
 public:
     char num;
-    MyCharacter(/* args */);
-    ~MyCharacter();
+    MyAvatar(/* args */);
+    ~MyAvatar();
 
     void moveModel(int data) override;
     void MoveCamera();

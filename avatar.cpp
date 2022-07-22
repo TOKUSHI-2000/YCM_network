@@ -1,11 +1,11 @@
 #define AVATAR_CPP
 #include "avatar.hpp"
 
-Character::Character()
+Avatar::Avatar()
 {
 }
 
-void Character::setModel(short id)
+void Avatar::setModel(short id)
 {
 	if (1/*id == 0*/)
 	{
@@ -24,13 +24,13 @@ void Character::setModel(short id)
 	}
 }
 
-void Character::moveModel(int data)
+void Avatar::moveModel(int data)
 {
-	
+
 }
 
 /*
-void MyCharacter::CharactorSet()
+void MyAvatar::CharactorSet()
 {	
 	
 	int i;
@@ -60,7 +60,7 @@ void MyCharacter::CharactorSet()
 }
 */
 
-Character::~Character()
+Avatar::~Avatar()
 {
 	MV1DeleteModel(ModelHandle);	
 }
@@ -77,7 +77,7 @@ void Character::ModelDraw()
 }
 */
 
-void Character::drawModel()
+void Avatar::drawModel()
 {
 	
 	MV1SetRotationXYZ( ModelHandle, VGet( 0.0f, Angle / 180.0f * DX_PI_F, 0.0f ) ) ;
@@ -85,19 +85,19 @@ void Character::drawModel()
 	MV1DrawModel( ModelHandle );
 }
 
-MyCharacter::MyCharacter()
+MyAvatar::MyAvatar()
 {
 	
     CameraHAngle = 0.0f ;
 	CameraVAngle = 40.0f ;
 }
 
-MyCharacter::~MyCharacter()
+MyAvatar::~MyAvatar()
 {
 }
 
 //キャラクターの移動キー
-void MyCharacter::moveModel(int data)
+void MyAvatar::moveModel(int data)
 {
     // 移動ベクトルを初期化
 	MoveVector = VGet( 0.0f, 0.0f, 0.0f ) ;
@@ -196,7 +196,7 @@ void MyCharacter::moveModel(int data)
 }
 
 //カメラの移動
-void MyCharacter::MoveCamera()
+void MyAvatar::MoveCamera()
 {
 	
 	// ZCSXキーでカメラの操作

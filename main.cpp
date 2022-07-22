@@ -54,8 +54,8 @@ int WINAPI WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLin
 	char hostId = false;
 	static HANDLE th;
 
-	Character* Avatar[numOfAvts];
-	MyCharacter* AvatarMe;
+	Avatar* Avatar[numOfAvts];
+	MyAvatar* AvatarMe;
 
 	signed char myAvaterId = -1;
 
@@ -81,7 +81,7 @@ int WINAPI WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLin
 	// 描画先を裏画面にする
 	SetDrawScreen( DX_SCREEN_BACK ) ;
 
-	AvatarMe = new MyCharacter();
+	AvatarMe = new MyAvatar();
 	//netSituation &= (1 << 0);
 	//netSituation &= (1 << 1);
 	if (1/*hostId == 1*/)
