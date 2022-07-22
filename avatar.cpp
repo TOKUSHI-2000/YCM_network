@@ -5,7 +5,7 @@ Character::Character()
 {
 }
 
-void Character::CharactorSet(short id)
+void Character::setModel(short id)
 {
 	if (1/*id == 0*/)
 	{
@@ -22,6 +22,11 @@ void Character::CharactorSet(short id)
 		MV1SetScale( ModelHandle, VGet( 150.0f, 150.0f, 150.0f ) );
 		
 	}
+}
+
+void Character::moveModel(int data)
+{
+	
 }
 
 /*
@@ -72,7 +77,7 @@ void Character::ModelDraw()
 }
 */
 
-void Character::DrawModel()
+void Character::drawModel()
 {
 	
 	MV1SetRotationXYZ( ModelHandle, VGet( 0.0f, Angle / 180.0f * DX_PI_F, 0.0f ) ) ;
@@ -92,7 +97,7 @@ MyCharacter::~MyCharacter()
 }
 
 //キャラクターの移動キー
-void MyCharacter::GetMoveKey()
+void MyCharacter::moveModel(int data)
 {
     // 移動ベクトルを初期化
 	MoveVector = VGet( 0.0f, 0.0f, 0.0f ) ;

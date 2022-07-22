@@ -19,8 +19,8 @@ extern std::string str[3];
 class Character
 {
 private:
+
 protected:
-    static HANDLE th;
     int ModelHandle;
     std::string Name;
 
@@ -34,8 +34,10 @@ public:
 public:
     Character();
     ~Character();
-    void CharactorSet(short id);
-    void DrawModel();
+    void setModel(short id);
+    void drawModel();
+    virtual void moveModel(int data);//int は仮
+    
 };
 
 
@@ -53,7 +55,7 @@ public:
     MyCharacter(/* args */);
     ~MyCharacter();
 
-    void GetMoveKey();
+    void moveModel(int data) override;
     void MoveCamera();
 };
 

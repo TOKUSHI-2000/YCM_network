@@ -137,7 +137,7 @@ int WINAPI WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLin
 		
 	}
     
-	AvatarMe->CharactorSet(charaId);
+	AvatarMe->setModel(charaId);
 	//Host a;
 	//Communication = &a;
 	std::cout << "CharactorSetOK\n";
@@ -149,17 +149,6 @@ int WINAPI WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLin
 	cameraVAngle = 40.0f ;
 
 	
-	for (int i = 0; i < 32; i++)
-	{
-		if (Avatar[i] != nullptr)
-		{
-		
-			if (AvatarMe->num != i)
-			{
-	//			Avatar[i]->setMove(Communication->getBuffer(i));
-			}
-		}
-	}
 	
 	// カメラのクリッピング距離を設定
 	SetCameraNearFar( 100.0f, 50000.0f );
@@ -173,8 +162,12 @@ int WINAPI WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLin
 
 		// 画面のクリア
 		ClearDrawScreen() ;
-		
-		AvatarMe->GetMoveKey();
+		for (char i = 0; i <32; i++)
+		{
+			if(Avatar[i] != nullptr){
+				AvatarMe->moveModel(1);
+			}
+		}
 
 		AvatarMe->MoveCamera();
 		
@@ -182,7 +175,7 @@ int WINAPI WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLin
 		for (char i = 0; i <32; i++)
 		{
 			if(Avatar[i] != nullptr){
-				Avatar[i]->DrawModel();
+				Avatar[i]->drawModel();
 			}
 		}
 		
