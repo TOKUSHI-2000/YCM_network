@@ -7,6 +7,28 @@
 #include <math.h>
 
 #include <iostream>
+
+struct NETDATA
+{
+    union body
+    {
+        struct header
+        {
+            char dataType;
+        }header;
+
+        struct position
+        {
+            VECTOR vetctor;
+            float angle;//向き
+        }position;
+        
+        
+    }body;
+    
+};
+
+
 constexpr char numOfAvts = 32;
 
 extern IPDATA ip;

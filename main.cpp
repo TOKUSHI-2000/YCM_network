@@ -42,6 +42,7 @@ int stringToInt(std::string str)
 */
 
 IPDATA ip;
+NETDATA netData[numOfAvts];
 
 int WINAPI WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow )
 {
@@ -50,12 +51,14 @@ int WINAPI WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLin
 	
 	int fileHandle;
 
+	int time;//時間調整
+
 	short charaId =0;
 	char hostId = false;
 	static HANDLE th;
 
-	Avatar* Avatar[numOfAvts];
-	MyAvatar* AvatarMe;
+	AVATAR* Avatar[numOfAvts];
+	MYAVATER* AvatarMe;
 
 	signed char myAvaterId = -1;
 
@@ -81,7 +84,7 @@ int WINAPI WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLin
 	// 描画先を裏画面にする
 	SetDrawScreen( DX_SCREEN_BACK ) ;
 
-	AvatarMe = new MyAvatar();
+	AvatarMe = new MYAVATER();
 	//netSituation &= (1 << 0);
 	//netSituation &= (1 << 1);
 	if (1/*hostId == 1*/)
@@ -90,6 +93,12 @@ int WINAPI WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLin
 		AvatarMe->num = 0;
 		Avatar[0] = AvatarMe;//ホストはアバターID0を登録
 		std::cout << "ホスト\n";
+
+		//第二のアバターを創る処理
+		Avatar[1] = new AVATAR();
+		Avatar[1]->setModel(1);
+		netData->body.position.vetctor = VGet(0.0, 0.0, 0.0);
+		netData->body.position.angle = 0.0;
 	}
 	else
 	{
@@ -136,7 +145,7 @@ int WINAPI WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLin
 		//th=CreateThread(0,0,(LPTHREAD_START_ROUTINE)Client,(LPVOID)1,0,NULL);
 		
 	}
-    
+    charaId = 0;
 	AvatarMe->setModel(charaId);
 	//Host a;
 	//Communication = &a;
@@ -156,16 +165,20 @@ int WINAPI WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLin
 	// 背景の色を設定する
 	SetBackgroundColor( 128, 200, 100 ) ;
 
+	time = GetNowCount();
+
 	// メインループ
 	while( ProcessMessage() == 0 )
 	{
-
+		
 		// 画面のクリア
 		ClearDrawScreen() ;
+		
+		//移動
 		for (char i = 0; i <32; i++)
 		{
 			if(Avatar[i] != nullptr){
-				AvatarMe->moveModel(1);
+				AvatarMe->moveModel(netData[i]);
 			}
 		}
 
@@ -213,6 +226,12 @@ int WINAPI WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLin
 
 		// 裏画面の内容を表画面に反映
 		ScreenFlip() ;
+		if (GetNowCount() > time + 20)
+		{
+			ProcessMessage();
+		}
+		time = GetNowCount();
+		
 	}
 	//netSituation &= ~(1 << 0);
 	//netSituation &= ~(1 << 1);

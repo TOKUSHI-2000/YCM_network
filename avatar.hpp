@@ -5,7 +5,8 @@
 #ifdef AVATAR_CPP
 
 #endif
-#define MOVESPEED			15.0f
+constexpr float MOVESPEED = 30.0f;
+constexpr float MOVEDASHSPEED = 45.0f;
 
 #define CAMERA_ANGLE_SPEED		3.0f
 
@@ -16,7 +17,7 @@
 #define CAMERA_LOOK_AT_DISTANCE		2150.0f
 
 extern std::string str[3];
-class Avatar
+class AVATAR
 {
 private:
 
@@ -32,17 +33,17 @@ public:
     VECTOR Position ;
     /* data */
 public:
-    Avatar();
-    ~Avatar();
+    AVATAR();
+    ~AVATAR();
     void setModel(short id);
     void drawModel();
-    virtual void moveModel(int data);//int は仮
+    virtual void moveModel(NETDATA data);//int は仮
     
 };
 
 
 
-class MyAvatar :public Avatar
+class MYAVATER :public AVATAR
 {
 private:
     
@@ -52,10 +53,10 @@ private:
 	float  CosParam ;
 public:
     char num;
-    MyAvatar(/* args */);
-    ~MyAvatar();
+    MYAVATER(/* args */);
+    ~MYAVATER();
 
-    void moveModel(int data) override;
+    void moveModel(NETDATA data) override;
     void MoveCamera();
 };
 

@@ -1,20 +1,32 @@
 #define AVATAR_CPP
 #include "avatar.hpp"
 
-Avatar::Avatar()
+float getSpeed()
+{
+	if (CheckHitKey(KEY_INPUT_LSHIFT))
+	{
+		return MOVEDASHSPEED;
+	}
+	else
+	{
+		return MOVESPEED;
+	}
+	
+}
+
+
+AVATAR::AVATAR()
 {
 }
 
-void Avatar::setModel(short id)
+void AVATAR::setModel(short id)
 {
-	if (1/*id == 0*/)
+	if (id == 0)
 	{
 		ModelHandle = -1;
 		ModelHandle = MV1LoadModel((TCHAR*)"./Assets/yukkurireimu.mv1");
-		std::cout << ModelHandle << "\n";
 		MV1SetScale( ModelHandle, VGet( 150.0f, 150.0f, 150.0f ) );
 		
-		//MV1SetScale( ModelHandle, VGet( 5.0f, 5.0f, 5.0f) );
 	}
 	else if (id == 1)
 	{
@@ -24,60 +36,21 @@ void Avatar::setModel(short id)
 	}
 }
 
-void Avatar::moveModel(int data)
+void AVATAR::moveModel(NETDATA data)
 {
-
+	Position = data.body.position.vetctor;
+	Angle = data.body.position.angle;
 }
 
-/*
-void MyAvatar::CharactorSet()
-{	
-	
-	int i;
-	for (i = 0; i < 3; i++)
-	{
-		if ( 0 == str[i].find("server:"))break;
-		if (i == 3) i= -1;
-		
-	}
-	
-	if (i == -1)
-	{
-		ModelHandle = MV1LoadModel((TCHAR*)"./Assets/yukkurimarisa.mv1");
-	}
-	else if (str[i].find("\"h\"") != 5 && str[i].find("\"h\"") != std::string::npos)
-	{
-    	ModelHandle = MV1LoadModel((TCHAR*)"./Assets/yukkurireimu.mv1");
-	}
-	else
-	{
-		
-		ModelHandle = MV1LoadModel((TCHAR*)"./Assets/yukkurimarisa.mv1");
-	}
-	
-	MV1SetScale( ModelHandle, VGet( 150.0f, 150.0f, 150.0f ) );
-	Angle = 0;
-}
-*/
 
-Avatar::~Avatar()
+AVATAR::~AVATAR()
 {
 	MV1DeleteModel(ModelHandle);	
 }
 
 
 
-/*
-void Character::ModelDraw()
-{
-	MV1SetRotationXYZ( ModelHandle, VGet( 0.0f, Angle / 180.0f * DX_PI_F, 0.0f ));
-	MV1SetPosition( ModelHandle, Position ) ;
-
-    MV1DrawModel( ModelHandle ) ;
-}
-*/
-
-void Avatar::drawModel()
+void AVATAR::drawModel()
 {
 	
 	MV1SetRotationXYZ( ModelHandle, VGet( 0.0f, Angle / 180.0f * DX_PI_F, 0.0f ) ) ;
@@ -85,19 +58,19 @@ void Avatar::drawModel()
 	MV1DrawModel( ModelHandle );
 }
 
-MyAvatar::MyAvatar()
+MYAVATER::MYAVATER()
 {
 	
     CameraHAngle = 0.0f ;
 	CameraVAngle = 40.0f ;
 }
 
-MyAvatar::~MyAvatar()
+MYAVATER::~MYAVATER()
 {
 }
 
 //キャラクターの移動キー
-void MyAvatar::moveModel(int data)
+void MYAVATER::moveModel(NETDATA data)
 {
     // 移動ベクトルを初期化
 	MoveVector = VGet( 0.0f, 0.0f, 0.0f ) ;
@@ -111,31 +84,25 @@ void MyAvatar::moveModel(int data)
 	if( CheckHitKey( KEY_INPUT_A ) == 1 )
 	{
 		MoveFlag     = TRUE ;
-		MoveVector.x += -MOVESPEED ;
+		MoveVector.x -= getSpeed() ;
 	}
 
 	if( CheckHitKey( KEY_INPUT_D ) == 1 )
 	{
 		MoveFlag     = TRUE ;
-		MoveVector.x += MOVESPEED ;
+		MoveVector.x += getSpeed() ;
 	}
 
 	if( CheckHitKey( KEY_INPUT_S ) == 1 )
 	{
 		MoveFlag     = TRUE ;
-		MoveVector.z += -MOVESPEED ;
+		MoveVector.z -= getSpeed() ;
 	}
 
 	if( CheckHitKey( KEY_INPUT_W ) == 1 )
 	{
 		MoveFlag     = TRUE ;
-		MoveVector.z += MOVESPEED ;
-	}
-
-	if ( CheckHitKey( KEY_INPUT_LSHIFT ) == 1 )
-	{
-		MoveVector.x *= 2;
-		MoveVector.z *= 2;
+		MoveVector.z += getSpeed() ;
 	}
 
     //体の角度を設定する
@@ -196,7 +163,7 @@ void MyAvatar::moveModel(int data)
 }
 
 //カメラの移動
-void MyAvatar::MoveCamera()
+void MYAVATER::MoveCamera()
 {
 	
 	// ZCSXキーでカメラの操作
