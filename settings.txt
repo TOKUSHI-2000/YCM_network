@@ -1,6 +1,6 @@
 Host=true;
 Server=false;
-Name=Yukkuri;
+Name=TestPlayer;
 ip1=1;
 ip2=1;
 ip3=1;
