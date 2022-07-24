@@ -53,6 +53,9 @@ int WINAPI WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLin
 
 	int time;//時間調整
 
+	std::string name;
+	int serverBits = 0;
+
 	short charaId =0;
 	char hostId = false;
 	static HANDLE th;
@@ -66,6 +69,9 @@ int WINAPI WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLin
 	ip.d2=1;
 	ip.d3=1;
 	ip.d4=1;
+
+	readIniFile( name, ip, serverBits);
+	std::cout << name << "\n";
 
 	// ウインドウモードで起動
 	ChangeWindowMode( TRUE ) ;

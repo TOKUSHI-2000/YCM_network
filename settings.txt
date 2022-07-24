@@ -1,2 +1,7 @@
-server:"h"
-ip:"192.4.1.1"
+Host=true;
+Server=false;
+Name=Yukkuri;
+ip1=1;
+ip2=1;
+ip3=1;
+ip4=1;

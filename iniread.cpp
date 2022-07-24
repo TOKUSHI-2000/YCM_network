@@ -1,11 +1,9 @@
 #include <stdio.h>
 #include <string>
 #include <unordered_map>
+#include <DxLib.h>
 
-typedef struct tagIPDATA
-{
-	unsigned char			d1, d2, d3, d4 ;
-} IPDATA;
+#include <iostream>
 
 constexpr int strNum = 10;
 constexpr int strLenght = 32;
@@ -73,7 +71,6 @@ private:
 public:
     DATAMAP(std::string &name_, IPDATA &ip_,int &serverBits_);
     ~DATAMAP();
-    void setStr(char *str_, int i);
     void dataChange(char *str_);
 
     
@@ -88,14 +85,14 @@ DATAMAP::DATAMAP(std::string &name_, IPDATA &ip_,int &serverBits_) :name(name_),
 DATAMAP::~DATAMAP()
 {
     int tmp;
-    name = data["Name"];
-    ip.d1 = stringToChar(data["ip1"]);
+    name = data[u8"Name"];
+    ip.d1 = stringToChar(data[u8"ip1"]);
 
-    ip.d2 = stringToChar(data["ip2"]);
+    ip.d2 = stringToChar(data[u8"ip2"]);
 
-    ip.d3 = stringToChar(data["ip3"]);
+    ip.d3 = stringToChar(data[u8"ip3"]);
 
-    ip.d4 = stringToChar(data["ip4"]);
+    ip.d4 = stringToChar(data[u8"ip4"]);
 
     serverBits = 0;
     if (stringToBool(data["Host"]));
@@ -111,11 +108,6 @@ DATAMAP::~DATAMAP()
     return;
 }
 
-void DATAMAP::setStr(char *str_, int i)
-{
-    str[i] = str_;
-
-}
 
 void DATAMAP::dataChange(char *str_)
 {
@@ -131,26 +123,28 @@ void DATAMAP::dataChange(char *str_)
     start = 0;
     finish = str.find_first_of("=");
 
-    key = str.substr(0,finish-1);
+    key = str.substr(0,finish);
 
     start = finish + 1;
     if (str.find_first_of(";") ==std::string::npos)
     {
-        finish = str.length();
+        finish = str.length()-start;
     }
     else
     {
-        finish = str.find(";");
+        finish = str.find(";")-start;
     }
 
-    body = str.substr(finish);
+    body = str.substr( start, finish);
 
-    if (data.find(key) == data.end())
+    std::cout <<key << ":" << body << "\n";
+
+    if (data.find(key) != data.end())
     {
         data.erase(key);
     }
     data.insert({key, body});
-    
+    std::cout << data[key] << "\n";
    return; 
 
 }
@@ -174,13 +168,13 @@ void readIniFile(std::string &name_, IPDATA &ip_,int &serverBits_)
         char cstr[strLenght];
 
         fgets( cstr, strLenght, fp);
-        if (cstr == NULL)
+        
+        datamap.dataChange(cstr);
+        
+        if (cstr == NULL || feof(fp))
         {
             break;
         }
-        
-        datamap.dataChange(cstr);
-
     }
     
     fclose(fp);
