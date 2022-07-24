@@ -4,7 +4,7 @@
 
 typedef struct tagIPDATA
 {
-	unsigned char			d1, d2, d3, d4 ;				// �A�h���X�l
+	unsigned char			d1, d2, d3, d4 ;
 } IPDATA;
 
 constexpr int strNum = 10;
