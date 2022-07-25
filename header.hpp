@@ -31,6 +31,10 @@ struct NETDATA
 
 constexpr char numOfAvts = 32;
 
+constexpr int BITS_STOP_MAIN_THREAD = (1<<0);
+constexpr int BITS_FINISH_MAIN_THREAD = (1<<1);
+
 extern IPDATA ip;
+extern int SystemBits;
 
 #endif

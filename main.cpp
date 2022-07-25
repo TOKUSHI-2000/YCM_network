@@ -7,8 +7,6 @@
 #include "avatar.hpp"
 #include "main.hpp"
 
-// 移動速度
-//#define MOVESPEED			10.0f
 
 // ラインを描く範囲
 constexpr float LINE_AREA_SIZE = 10000.0f;
@@ -16,33 +14,11 @@ constexpr float LINE_AREA_SIZE = 10000.0f;
 // ラインの数
 constexpr int LINE_NUM = 50;
 
-/*
-int stringToInt(std::string str)
-{
-	std::cout << str << "\t";
-	int a = 0;
-	try
-	{
-		a = std::stoi(str);
-		return a;
-	}
-	catch(std::invalid_argument e)
-	{
-		ClearDrawScreen() ;
-		DrawString( 0, 0, (TCHAR*)"あああああああああエラー\n\tIpアドレスが数字として認識できません", GetColor( 255, 255, 255), true);
-		ScreenFlip() ;
-		WaitKey();
-		
-		
-		exit(1);
-	} catch (std::out_of_range e) {
-    return a;
-    }
-}
-*/
 
 IPDATA ip;
 NETDATA netData[numOfAvts];
+
+int SystemBits = 0;
 
 int WINAPI WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow )
 {
@@ -173,8 +149,9 @@ int WINAPI WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLin
 
 	time = GetNowCount();
 
+	SystemBits |= BITS_FINISH_MAIN_THREAD;
 	// メインループ
-	while( ProcessMessage() == 0 )
+	while(SystemBits & BITS_FINISH_MAIN_THREAD)
 	{
 		
 		// 画面のクリア
@@ -234,7 +211,11 @@ int WINAPI WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLin
 		ScreenFlip() ;
 		if (GetNowCount() > time + 20)
 		{
-			ProcessMessage();
+			if (ProcessMessage()!=0)
+			{
+				SystemBits &= ~BITS_FINISH_MAIN_THREAD;
+			}
+
 		}
 		time = GetNowCount();
 		
